@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import pymupdf; doc = pymupdf.open(r'C:\claudeproject\BIpdca\doc\251216_資料_25年度事業計画_11月度PDCA.pdf'); page = doc[46]; print(page.get_text())
+                                                                                                                                  ~~~~~^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'cp932' codec can't encode character '\xa9' in position 4: illegal multibyte sequence

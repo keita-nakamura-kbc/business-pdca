@@ -1,0 +1,26 @@
+# 社内機密PDF
+doc/*.pdf
+
+# Python（PDF抽出スクリプト用）
+__pycache__/
+*.pyc
+config.py
+
+# Node（サブディレクトリの.gitignoreと併用）
+node_modules/
+
+# OS / Editor
+.DS_Store
+*.sw?
+.vscode/
+.idea/
+
+# Screenshots（任意）
+*.jpg
+*.webp
+
+# Claude Code local settings
+.claude/
+
+# Windows reserved filenames
+nul

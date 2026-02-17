@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import json; data = json.load(open('files/all_pages_structure.json', 'r', encoding='utf-8')); p47 = [p for p in data['pages'] if p.get('page_number') == 47]; print(json.dumps(p47, ensure_ascii=False, indent=2))
+                                                                                                                    ~~~~^^^^^^^^^
+TypeError: list indices must be integers or slices, not str

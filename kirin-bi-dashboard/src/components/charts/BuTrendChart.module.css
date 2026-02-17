@@ -1,0 +1,131 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.legend {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  margin: 2px 0 4px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legendLine {
+  width: 20px;
+  height: 0;
+  border-top: 2px solid var(--color-text);
+  display: inline-block;
+}
+
+.legendDash {
+  width: 20px;
+  height: 0;
+  border-top: 2px dashed var(--color-text-secondary);
+  display: inline-block;
+}
+
+.legendDot {
+  width: 20px;
+  height: 0;
+  border-top: 2px dotted var(--color-text-secondary);
+  display: inline-block;
+}
+
+.chartGrid {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+.miniChart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.miniTitle {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.colorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.badge {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+}
+
+/* BU hover tooltip */
+.tooltipTrigger {
+  position: relative;
+}
+
+.buTooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: var(--shadow-md);
+  padding: 8px 10px;
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+.tooltipTrigger:hover > .buTooltip {
+  display: block;
+}
+
+.tooltipTitle {
+  font-weight: 700;
+  font-size: var(--font-size-body);
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 4px;
+}
+
+.tooltipRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--font-size-small);
+  padding: 2px 0;
+}

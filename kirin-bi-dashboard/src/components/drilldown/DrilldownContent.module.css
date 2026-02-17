@@ -1,0 +1,150 @@
+.container {
+  padding: var(--space-sm);
+}
+
+.section {
+  margin-bottom: var(--space-lg);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-heading);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-body);
+}
+
+.metricLabel {
+  color: var(--color-text-secondary);
+}
+
+.metricValue {
+  font-weight: 700;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-small);
+  margin-top: var(--space-sm);
+}
+
+.table th {
+  background: var(--color-table-header);
+  color: #fff;
+  padding: var(--space-xs) var(--space-sm);
+  font-weight: 500;
+  text-align: center;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.table th:first-child {
+  text-align: left;
+}
+
+.table td {
+  padding: var(--space-xs) var(--space-sm);
+  text-align: right;
+  border: 0.5px solid var(--color-border);
+}
+
+.table td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+.table tr:nth-child(even) {
+  background: var(--color-table-stripe);
+}
+
+.negative {
+  color: var(--color-text-negative);
+}
+
+.positive {
+  color: var(--color-text-positive);
+}
+
+.shipmentItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-body);
+}
+
+.shipmentItem.indented {
+  padding-left: var(--space-lg);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+.shipmentLabel {
+  flex: 1;
+}
+
+.shipmentValue {
+  width: 80px;
+  text-align: right;
+  font-weight: 500;
+}
+
+.shipmentRatio {
+  width: 60px;
+  text-align: right;
+}
+
+.chartContainer {
+  margin-top: var(--space-md);
+}
+
+.totalRow {
+  background: var(--color-table-total) !important;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.grandTotalRow {
+  background: var(--color-table-grand-total) !important;
+  font-weight: 700;
+}
+
+.noData {
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: var(--space-xl);
+  font-size: var(--font-size-body);
+}
+
+.sectionToggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.sectionToggle > *:first-child { flex: 1; }
+.sectionToggle svg { color: var(--color-text-secondary); }
+
+.parentChannelCell {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  text-align: left !important;
+}
+.parentChannelCell svg {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.categoryCell {
+  font-weight: 600;
+}

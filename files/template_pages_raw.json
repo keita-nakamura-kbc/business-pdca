@@ -1,0 +1,523 @@
+[
+  {
+    "page_num": 1,
+    "section": "不明",
+    "kpis": [],
+    "text_length": 93
+  },
+  {
+    "page_num": 2,
+    "section": "エグゼクティブサマリ",
+    "kpis": [
+      "事業利益"
+    ],
+    "text_length": 213
+  },
+  {
+    "page_num": 3,
+    "section": "エグゼクティブサマリ",
+    "kpis": [],
+    "text_length": 12
+  },
+  {
+    "page_num": 4,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "変動費高比",
+      "累月",
+      "対期央",
+      "事業利益",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1080
+  },
+  {
+    "page_num": 5,
+    "section": "決算概況",
+    "kpis": [],
+    "text_length": 5
+  },
+  {
+    "page_num": 6,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "限界利益単価",
+      "変動費高比",
+      "累月",
+      "対期央",
+      "売上高",
+      "事業利益",
+      "単月",
+      "売上高単価",
+      "限界利益"
+    ],
+    "text_length": 1439
+  },
+  {
+    "page_num": 7,
+    "section": "決算概況",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "変動費高比",
+      "対期央",
+      "売上高",
+      "販売箱数",
+      "事業利益",
+      "単月",
+      "売上高単価"
+    ],
+    "text_length": 711
+  },
+  {
+    "page_num": 8,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "変動費高比",
+      "累月",
+      "対期央",
+      "売上高",
+      "販売箱数",
+      "事業利益",
+      "売上高単価"
+    ],
+    "text_length": 693
+  },
+  {
+    "page_num": 9,
+    "section": "決算概況",
+    "kpis": [
+      "限界利益単価",
+      "変動費高比",
+      "累月",
+      "直接利益",
+      "対期央",
+      "売上高",
+      "限界利益"
+    ],
+    "text_length": 441
+  },
+  {
+    "page_num": 10,
+    "section": "決算概況",
+    "kpis": [
+      "変動費高比",
+      "累月",
+      "直接利益",
+      "対期央",
+      "売上高",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1844
+  },
+  {
+    "page_num": 11,
+    "section": "不明",
+    "kpis": [
+      "変動費高比",
+      "累月",
+      "対期央",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1512
+  },
+  {
+    "page_num": 12,
+    "section": "決算概況",
+    "kpis": [
+      "事業利益",
+      "単月",
+      "売上高",
+      "対期央"
+    ],
+    "text_length": 536
+  },
+  {
+    "page_num": 13,
+    "section": "ブランド概況",
+    "kpis": [],
+    "text_length": 7
+  },
+  {
+    "page_num": 14,
+    "section": "プラズマ乳酸菌",
+    "kpis": [
+      "対期央",
+      "単月",
+      "累月",
+      "対前年"
+    ],
+    "text_length": 789
+  },
+  {
+    "page_num": 15,
+    "section": "不明",
+    "kpis": [],
+    "text_length": 1462
+  },
+  {
+    "page_num": 16,
+    "section": "不明",
+    "kpis": [],
+    "text_length": 1242
+  },
+  {
+    "page_num": 17,
+    "section": "午後の紅茶",
+    "kpis": [
+      "対期央",
+      "単月",
+      "累月",
+      "対前年"
+    ],
+    "text_length": 831
+  },
+  {
+    "page_num": 18,
+    "section": "午後の紅茶",
+    "kpis": [],
+    "text_length": 1155
+  },
+  {
+    "page_num": 19,
+    "section": "生茶",
+    "kpis": [
+      "対期央",
+      "単月",
+      "累月",
+      "対前年"
+    ],
+    "text_length": 780
+  },
+  {
+    "page_num": 20,
+    "section": "生茶",
+    "kpis": [
+      "対前年"
+    ],
+    "text_length": 1114
+  },
+  {
+    "page_num": 21,
+    "section": "本日の論点",
+    "kpis": [],
+    "text_length": 8
+  },
+  {
+    "page_num": 22,
+    "section": "本日の論点",
+    "kpis": [
+      "事業利益"
+    ],
+    "text_length": 432
+  },
+  {
+    "page_num": 23,
+    "section": "本日の論点",
+    "kpis": [],
+    "text_length": 20
+  },
+  {
+    "page_num": 24,
+    "section": "不明",
+    "kpis": [
+      "変動費高比",
+      "累月",
+      "販売箱数",
+      "事業利益",
+      "単月"
+    ],
+    "text_length": 658
+  },
+  {
+    "page_num": 25,
+    "section": "本日の論点",
+    "kpis": [],
+    "text_length": 33
+  },
+  {
+    "page_num": 26,
+    "section": "生茶",
+    "kpis": [
+      "事業利益",
+      "限界利益"
+    ],
+    "text_length": 696
+  },
+  {
+    "page_num": 27,
+    "section": "生茶",
+    "kpis": [],
+    "text_length": 877
+  },
+  {
+    "page_num": 28,
+    "section": "生茶",
+    "kpis": [],
+    "text_length": 1034
+  },
+  {
+    "page_num": 29,
+    "section": "Appendix",
+    "kpis": [],
+    "text_length": 9
+  },
+  {
+    "page_num": 30,
+    "section": "Appendix",
+    "kpis": [
+      "単月",
+      "累月",
+      "対前年"
+    ],
+    "text_length": 717
+  },
+  {
+    "page_num": 31,
+    "section": "不明",
+    "kpis": [],
+    "text_length": 640
+  },
+  {
+    "page_num": 32,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "累月",
+      "直接利益",
+      "対期央",
+      "販売箱数",
+      "事業利益",
+      "限界利益"
+    ],
+    "text_length": 1961
+  },
+  {
+    "page_num": 33,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "直接利益",
+      "対期央",
+      "販売箱数",
+      "事業利益",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1872
+  },
+  {
+    "page_num": 34,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "累月",
+      "営業利益",
+      "直接利益",
+      "売上高",
+      "販売箱数",
+      "限界利益"
+    ],
+    "text_length": 2086
+  },
+  {
+    "page_num": 35,
+    "section": "不明",
+    "kpis": [
+      "対前年",
+      "営業利益",
+      "直接利益",
+      "売上高",
+      "販売箱数",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1956
+  },
+  {
+    "page_num": 36,
+    "section": "Appendix",
+    "kpis": [
+      "対前年",
+      "売上収益",
+      "累月",
+      "直接利益",
+      "対期央",
+      "販売箱数",
+      "事業利益",
+      "限界利益"
+    ],
+    "text_length": 994
+  },
+  {
+    "page_num": 37,
+    "section": "Appendix",
+    "kpis": [
+      "累月",
+      "営業利益",
+      "対期央",
+      "売上高",
+      "事業利益",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1296
+  },
+  {
+    "page_num": 38,
+    "section": "Appendix",
+    "kpis": [
+      "対前年",
+      "累月",
+      "営業利益",
+      "売上高",
+      "事業利益",
+      "単月",
+      "限界利益"
+    ],
+    "text_length": 1282
+  },
+  {
+    "page_num": 39,
+    "section": "プラズマ乳酸菌",
+    "kpis": [
+      "対前年",
+      "累月",
+      "対期央",
+      "売上高",
+      "販売数量"
+    ],
+    "text_length": 1895
+  },
+  {
+    "page_num": 40,
+    "section": "プラズマ乳酸菌",
+    "kpis": [
+      "対前年",
+      "対期央",
+      "売上高",
+      "単月",
+      "販売数量"
+    ],
+    "text_length": 1710
+  },
+  {
+    "page_num": 41,
+    "section": "Appendix",
+    "kpis": [
+      "対前年",
+      "累月",
+      "対期央",
+      "売上高",
+      "販売数量"
+    ],
+    "text_length": 3249
+  },
+  {
+    "page_num": 42,
+    "section": "Appendix",
+    "kpis": [
+      "対前年",
+      "対期央",
+      "売上高",
+      "単月",
+      "販売数量"
+    ],
+    "text_length": 2913
+  },
+  {
+    "page_num": 43,
+    "section": "Appendix",
+    "kpis": [
+      "累月",
+      "対前年"
+    ],
+    "text_length": 943
+  },
+  {
+    "page_num": 44,
+    "section": "Appendix",
+    "kpis": [
+      "累月"
+    ],
+    "text_length": 95
+  },
+  {
+    "page_num": 45,
+    "section": "Appendix",
+    "kpis": [
+      "対期央",
+      "累月",
+      "対前年"
+    ],
+    "text_length": 1658
+  },
+  {
+    "page_num": 46,
+    "section": "不明",
+    "kpis": [
+      "単月",
+      "売上高単価",
+      "売上高",
+      "累月"
+    ],
+    "text_length": 836
+  },
+  {
+    "page_num": 47,
+    "section": "Appendix",
+    "kpis": [
+      "売上高",
+      "限界利益",
+      "累月",
+      "対前年"
+    ],
+    "text_length": 2148
+  },
+  {
+    "page_num": 48,
+    "section": "Appendix",
+    "kpis": [
+      "売上収益",
+      "累月",
+      "直接利益",
+      "対期央",
+      "販売箱数",
+      "事業利益",
+      "限界利益"
+    ],
+    "text_length": 3128
+  },
+  {
+    "page_num": 49,
+    "section": "不明",
+    "kpis": [
+      "売上高",
+      "限界利益",
+      "累月",
+      "直接利益"
+    ],
+    "text_length": 1998
+  },
+  {
+    "page_num": 50,
+    "section": "不明",
+    "kpis": [
+      "変動費高比",
+      "売上高",
+      "限界利益"
+    ],
+    "text_length": 4381
+  }
+]

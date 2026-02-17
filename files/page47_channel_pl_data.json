@@ -1,0 +1,496 @@
+{
+  "page": 47,
+  "title": "【単社】11月累月 チャネル別損益",
+  "unit_note": "（単位：千箱、百万円、円/箱）",
+  "columns": {
+    "actual": ["販売箱数", "売上高", "変動費高比", "限界利益", "限界利益単価", "直接利益", "直接利益率"],
+    "vs_budget": ["販売箱数", "売上高", "変動費高比", "限界利益", "限界利益単価", "直接利益", "直接利益率"],
+    "vs_prior": ["販売箱数", "売上高", "変動費高比", "限界利益", "限界利益単価", "直接利益", "直接利益率"]
+  },
+  "channels": [
+    {
+      "name": "量販",
+      "actual": {
+        "volume": 64497,
+        "revenue": 152875,
+        "var_cost_ratio": "49.2%",
+        "margin": 26001,
+        "margin_per_box": 403,
+        "direct_profit": 18744,
+        "direct_profit_rate": "12.3%"
+      },
+      "vs_budget": {
+        "volume": "△ 1,403",
+        "revenue": "△ 3,413",
+        "var_cost_ratio": "△1.4%",
+        "margin": "△ 2,836",
+        "margin_per_box": "△ 34",
+        "direct_profit": "△ 2,224",
+        "direct_profit_rate": "△1.2%"
+      },
+      "vs_prior": {
+        "volume": "△ 8,058",
+        "revenue": "△ 410",
+        "var_cost_ratio": "△1.9%",
+        "margin": "△ 641",
+        "margin_per_box": "36",
+        "direct_profit": "△ 619",
+        "direct_profit_rate": "△0.4%"
+      }
+    },
+    {
+      "name": "CVS",
+      "actual": {
+        "volume": 31767,
+        "revenue": 66174,
+        "var_cost_ratio": "41.7%",
+        "margin": 9996,
+        "margin_per_box": 315,
+        "direct_profit": 7006,
+        "direct_profit_rate": "10.6%"
+      },
+      "vs_budget": {
+        "volume": "△ 499",
+        "revenue": "△ 1,293",
+        "var_cost_ratio": "△0.4%",
+        "margin": "△ 431",
+        "margin_per_box": "△ 8",
+        "direct_profit": "△ 77",
+        "direct_profit_rate": "0.1%"
+      },
+      "vs_prior": {
+        "volume": "△ 1,753",
+        "revenue": "390",
+        "var_cost_ratio": "△1.2%",
+        "margin": "△ 26",
+        "margin_per_box": "16",
+        "direct_profit": "644",
+        "direct_profit_rate": "0.9%"
+      }
+    },
+    {
+      "name": "卸一般",
+      "actual": {
+        "volume": 10390,
+        "revenue": 25324,
+        "var_cost_ratio": "40.6%",
+        "margin": 5428,
+        "margin_per_box": 522,
+        "direct_profit": 4254,
+        "direct_profit_rate": "16.8%"
+      },
+      "vs_budget": {
+        "volume": "41",
+        "revenue": "△ 31",
+        "var_cost_ratio": "△0.7%",
+        "margin": "△ 277",
+        "margin_per_box": "△ 29",
+        "direct_profit": "△ 395",
+        "direct_profit_rate": "△1.5%"
+      },
+      "vs_prior": {
+        "volume": "△ 712",
+        "revenue": "211",
+        "var_cost_ratio": "1.6%",
+        "margin": "618",
+        "margin_per_box": "89",
+        "direct_profit": "722",
+        "direct_profit_rate": "2.7%"
+      }
+    },
+    {
+      "name": "EC",
+      "actual": {
+        "volume": 10315,
+        "revenue": 14228,
+        "var_cost_ratio": "29.1%",
+        "margin": 3606,
+        "margin_per_box": 350,
+        "direct_profit": 2725,
+        "direct_profit_rate": "19.2%"
+      },
+      "vs_budget": {
+        "volume": "1,061",
+        "revenue": "1,458",
+        "var_cost_ratio": "△2.3%",
+        "margin": "142",
+        "margin_per_box": "△ 25",
+        "direct_profit": "1",
+        "direct_profit_rate": "△2.2%"
+      },
+      "vs_prior": {
+        "volume": "877",
+        "revenue": "2,871",
+        "var_cost_ratio": "△1.8%",
+        "margin": "791",
+        "margin_per_box": "51",
+        "direct_profit": "610",
+        "direct_profit_rate": "0.5%"
+      }
+    },
+    {
+      "name": "その他",
+      "actual": {
+        "volume": 7276,
+        "revenue": 5871,
+        "var_cost_ratio": "1.6%",
+        "margin": "△ 728",
+        "margin_per_box": "△ 100",
+        "direct_profit": "△ 843",
+        "direct_profit_rate": "△14.4%"
+      },
+      "vs_budget": {
+        "volume": "545",
+        "revenue": "289",
+        "var_cost_ratio": "0.1%",
+        "margin": "△ 292",
+        "margin_per_box": "△ 35",
+        "direct_profit": "△ 205",
+        "direct_profit_rate": "△2.9%"
+      },
+      "vs_prior": {
+        "volume": "△ 128",
+        "revenue": "362",
+        "var_cost_ratio": "2.0%",
+        "margin": "796",
+        "margin_per_box": "106",
+        "direct_profit": "826",
+        "direct_profit_rate": "15.9%"
+      }
+    },
+    {
+      "name": "手売り計",
+      "row_type": "subtotal",
+      "actual": {
+        "volume": 124245,
+        "revenue": 264472,
+        "var_cost_ratio": "44.4%",
+        "margin": 44304,
+        "margin_per_box": 357,
+        "direct_profit": 31886,
+        "direct_profit_rate": "12.1%"
+      },
+      "vs_budget": {
+        "volume": "△ 254",
+        "revenue": "△ 2,989",
+        "var_cost_ratio": "△0.9%",
+        "margin": "△ 3,695",
+        "margin_per_box": "△ 29",
+        "direct_profit": "△ 2,900",
+        "direct_profit_rate": "△0.9%"
+      },
+      "vs_prior": {
+        "volume": "△ 9,774",
+        "revenue": "3,424",
+        "var_cost_ratio": "△1.1%",
+        "margin": "1,538",
+        "margin_per_box": "37",
+        "direct_profit": "2,182",
+        "direct_profit_rate": "0.7%"
+      }
+    },
+    {
+      "name": "オペレーター",
+      "actual": {
+        "volume": 15545,
+        "revenue": 31091,
+        "var_cost_ratio": "15.5%",
+        "margin": 10575,
+        "margin_per_box": 680,
+        "direct_profit": 4014,
+        "direct_profit_rate": "12.9%"
+      },
+      "vs_budget": {
+        "volume": "△ 139",
+        "revenue": "△ 138",
+        "var_cost_ratio": "△0.5%",
+        "margin": "61",
+        "margin_per_box": "10",
+        "direct_profit": "288",
+        "direct_profit_rate": "1.0%"
+      },
+      "vs_prior": {
+        "volume": "△ 342",
+        "revenue": "△ 601",
+        "var_cost_ratio": "△0.3%",
+        "margin": "△ 556",
+        "margin_per_box": "△ 20",
+        "direct_profit": "147",
+        "direct_profit_rate": "0.7%"
+      }
+    },
+    {
+      "name": "自販機販社",
+      "actual": {
+        "volume": 13736,
+        "revenue": 22107,
+        "var_cost_ratio": "0.1%",
+        "margin": 8612,
+        "margin_per_box": 627,
+        "direct_profit": 3815,
+        "direct_profit_rate": "17.3%"
+      },
+      "vs_budget": {
+        "volume": "220",
+        "revenue": "417",
+        "var_cost_ratio": "△0.0%",
+        "margin": "181",
+        "margin_per_box": "3",
+        "direct_profit": "350",
+        "direct_profit_rate": "1.3%"
+      },
+      "vs_prior": {
+        "volume": "△ 520",
+        "revenue": "△ 531",
+        "var_cost_ratio": "△0.0%",
+        "margin": "△ 275",
+        "margin_per_box": "4",
+        "direct_profit": "127",
+        "direct_profit_rate": "1.0%"
+      }
+    },
+    {
+      "name": "ヤクルト",
+      "actual": {
+        "volume": 3968,
+        "revenue": 6575,
+        "var_cost_ratio": "7.0%",
+        "margin": 2319,
+        "margin_per_box": 584,
+        "direct_profit": 1267,
+        "direct_profit_rate": "19.3%"
+      },
+      "vs_budget": {
+        "volume": "△ 19",
+        "revenue": "△ 16",
+        "var_cost_ratio": "1.8%",
+        "margin": "193",
+        "margin_per_box": "51",
+        "direct_profit": "372",
+        "direct_profit_rate": "5.7%"
+      },
+      "vs_prior": {
+        "volume": "△ 212",
+        "revenue": "△ 248",
+        "var_cost_ratio": "1.8%",
+        "margin": "6",
+        "margin_per_box": "31",
+        "direct_profit": "54",
+        "direct_profit_rate": "1.5%"
+      }
+    },
+    {
+      "name": "ダイドー",
+      "actual": {
+        "volume": 875,
+        "revenue": 1177,
+        "var_cost_ratio": "0.0%",
+        "margin": 363,
+        "margin_per_box": 415,
+        "direct_profit": 315,
+        "direct_profit_rate": "26.7%"
+      },
+      "vs_budget": {
+        "volume": "△ 30",
+        "revenue": "△ 40",
+        "var_cost_ratio": "0.0%",
+        "margin": "6",
+        "margin_per_box": "20",
+        "direct_profit": "11",
+        "direct_profit_rate": "1.8%"
+      },
+      "vs_prior": {
+        "volume": "△ 3",
+        "revenue": "△ 4",
+        "var_cost_ratio": "0.0%",
+        "margin": "△ 40",
+        "margin_per_box": "△ 44",
+        "direct_profit": "△ 36",
+        "direct_profit_rate": "△3.0%"
+      }
+    },
+    {
+      "name": "自販機計",
+      "row_type": "subtotal",
+      "actual": {
+        "volume": 34125,
+        "revenue": 60950,
+        "var_cost_ratio": "8.7%",
+        "margin": 21881,
+        "margin_per_box": 641,
+        "direct_profit": 9456,
+        "direct_profit_rate": "15.5%"
+      },
+      "vs_budget": {
+        "volume": "32",
+        "revenue": "223",
+        "var_cost_ratio": "0.0%",
+        "margin": "441",
+        "margin_per_box": "12",
+        "direct_profit": "1,021",
+        "direct_profit_rate": "1.6%"
+      },
+      "vs_prior": {
+        "volume": "△ 1,076",
+        "revenue": "△ 1,383",
+        "var_cost_ratio": "0.1%",
+        "margin": "△ 849",
+        "margin_per_box": "△ 5",
+        "direct_profit": "321",
+        "direct_profit_rate": "0.9%"
+      }
+    },
+    {
+      "name": "ドライ計",
+      "row_type": "subtotal",
+      "actual": {
+        "volume": 158370,
+        "revenue": 325422,
+        "var_cost_ratio": "37.7%",
+        "margin": 66185,
+        "margin_per_box": 418,
+        "direct_profit": 41342,
+        "direct_profit_rate": "12.7%"
+      },
+      "vs_budget": {
+        "volume": "△ 222",
+        "revenue": "△ 2,766",
+        "var_cost_ratio": "△0.7%",
+        "margin": "△ 3,253",
+        "margin_per_box": "△ 20",
+        "direct_profit": "△ 1,878",
+        "direct_profit_rate": "△0.5%"
+      },
+      "vs_prior": {
+        "volume": "△ 10,850",
+        "revenue": "2,041",
+        "var_cost_ratio": "△1.0%",
+        "margin": "689",
+        "margin_per_box": "31",
+        "direct_profit": "2,503",
+        "direct_profit_rate": "0.7%"
+      }
+    },
+    {
+      "name": "チルド",
+      "actual": {
+        "volume": 10047,
+        "revenue": 9920,
+        "var_cost_ratio": "2.1%",
+        "margin": 1039,
+        "margin_per_box": 103,
+        "direct_profit": 970,
+        "direct_profit_rate": "9.8%"
+      },
+      "vs_budget": {
+        "volume": "△ 500",
+        "revenue": "△ 463",
+        "var_cost_ratio": "0.6%",
+        "margin": "△ 170",
+        "margin_per_box": "△ 11",
+        "direct_profit": "△ 145",
+        "direct_profit_rate": "△1.0%"
+      },
+      "vs_prior": {
+        "volume": "1,890",
+        "revenue": "2,411",
+        "var_cost_ratio": "△0.4%",
+        "margin": "184",
+        "margin_per_box": "△ 1",
+        "direct_profit": "149",
+        "direct_profit_rate": "△1.2%"
+      }
+    },
+    {
+      "name": "OEM",
+      "actual": {
+        "volume": 4622,
+        "revenue": 3117,
+        "var_cost_ratio": "0.0%",
+        "margin": 647,
+        "margin_per_box": 140,
+        "direct_profit": 647,
+        "direct_profit_rate": "20.8%"
+      },
+      "vs_budget": {
+        "volume": "118",
+        "revenue": "113",
+        "var_cost_ratio": "0.0%",
+        "margin": "143",
+        "margin_per_box": "28",
+        "direct_profit": "143",
+        "direct_profit_rate": "4.0%"
+      },
+      "vs_prior": {
+        "volume": "△ 76",
+        "revenue": "△ 9",
+        "var_cost_ratio": "0.0%",
+        "margin": "△ 77",
+        "margin_per_box": "△ 14",
+        "direct_profit": "△ 77",
+        "direct_profit_rate": "△2.4%"
+      }
+    },
+    {
+      "name": "海外",
+      "actual": {
+        "volume": 1305,
+        "revenue": 1317,
+        "var_cost_ratio": "0.0%",
+        "margin": 230,
+        "margin_per_box": 176,
+        "direct_profit": 227,
+        "direct_profit_rate": "17.3%"
+      },
+      "vs_budget": {
+        "volume": "48",
+        "revenue": "25",
+        "var_cost_ratio": "0.0%",
+        "margin": "6",
+        "margin_per_box": "△ 2",
+        "direct_profit": "4",
+        "direct_profit_rate": "△0.0%"
+      },
+      "vs_prior": {
+        "volume": "310",
+        "revenue": "283",
+        "var_cost_ratio": "0.0%",
+        "margin": "△ 31",
+        "margin_per_box": "△ 86",
+        "direct_profit": "△ 33",
+        "direct_profit_rate": "△7.9%"
+      }
+    },
+    {
+      "name": "KBC単社計",
+      "row_type": "total",
+      "actual": {
+        "volume": 174345,
+        "revenue": 339775,
+        "var_cost_ratio": "36.1%",
+        "margin": 68101,
+        "margin_per_box": 391,
+        "direct_profit": 43186,
+        "direct_profit_rate": "12.7%"
+      },
+      "vs_budget": {
+        "volume": "△ 556",
+        "revenue": "△ 3,092",
+        "var_cost_ratio": "△0.6%",
+        "margin": "△ 3,274",
+        "margin_per_box": "△ 17",
+        "direct_profit": "△ 1,644",
+        "direct_profit_rate": "△0.4%"
+      },
+      "vs_prior": {
+        "volume": "△ 8,726",
+        "revenue": "4,726",
+        "var_cost_ratio": "△0.7%",
+        "margin": "765",
+        "margin_per_box": "23",
+        "direct_profit": "2,542",
+        "direct_profit_rate": "0.6%"
+      }
+    }
+  ]
+}

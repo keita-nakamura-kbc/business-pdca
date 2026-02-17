@@ -1,0 +1,57 @@
+.slicerBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: 4px var(--space-lg);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  height: 28px;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.groupLabel {
+  font-size: var(--font-size-tiny);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.buttonGroup {
+  display: flex;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.btn {
+  padding: 2px var(--space-sm);
+  height: 24px;
+  font-size: var(--font-size-tiny);
+  font-weight: 500;
+  font-family: var(--font-family);
+  border: none;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  line-height: 20px;
+}
+
+.btn:not(:last-child) {
+  border-right: 1px solid var(--color-border);
+}
+
+.btn:hover {
+  background: var(--color-table-hover);
+}
+
+.btn.active {
+  background: var(--color-primary);
+  color: #fff;
+}

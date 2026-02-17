@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BIダッシュボード モックアップレビュー資料</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Yu Gothic UI', 'Meiryo', 'MS PGothic', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .slide {
+            background: white;
+            margin-bottom: 40px;
+            padding: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        h1 {
+            color: #1B325A;
+            font-size: 36px;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #DC0000;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #1B325A;
+            font-size: 28px;
+            margin-bottom: 25px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: #1B325A;
+            font-size: 22px;
+            margin-bottom: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #DC0000;
+            padding-left: 15px;
+        }
+
+        h4 {
+            color: #444;
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .highlight {
+            background-color: #FFF9C4;
+            padding: 2px 6px;
+            font-weight: bold;
+        }
+
+        .kirin-red {
+            color: #DC0000;
+            font-weight: bold;
+        }
+
+        .status-box {
+            background-color: #E3F2FD;
+            border-left: 5px solid #1976D2;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .proposal-box {
+            background-color: #FFF3E0;
+            border-left: 5px solid #FF9800;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .question-box {
+            background-color: #FCE4EC;
+            border-left: 5px solid #E91E63;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #1B325A;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .metric {
+            display: inline-block;
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .cover-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+        }
+
+        .cover-slide h1 {
+            font-size: 48px;
+            text-align: center;
+            border: none;
+            margin-bottom: 40px;
+        }
+
+        .cover-slide .subtitle {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .cover-slide .date {
+            font-size: 20px;
+            color: #999;
+        }
+
+        .checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #1B325A;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .priority-high {
+            color: #DC0000;
+            font-weight: bold;
+        }
+
+        .priority-medium {
+            color: #FF9800;
+            font-weight: bold;
+        }
+
+        .priority-low {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        @media print {
+            .slide {
+                margin-bottom: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1: 表紙 -->
+        <div class="slide cover-slide">
+            <h1>Power BIダッシュボード<br>モックアップ レビューMTG</h1>
+            <p class="subtitle">月次PDCAレポート HTMLモックアップ 実装状況と改善提案</p>
+            <p class="date">2026年1月28日</p>
+        </div>
+
+        <!-- スライド2: アジェンダ -->
+        <div class="slide">
+            <div class="slide-number">2</div>
+            <h1>アジェンダ</h1>
+
+            <h3>1. モックアップ化の概要</h3>
+            <ul>
+                <li>開発方針と実装状況</li>
+                <li>実装済みページ一覧</li>
+                <li>未実装ページ一覧</li>
+            </ul>
+
+            <h3>2. さらなる改善提案</h3>
+            <ul>
+                <li>グラフ・可視化の追加提案</li>
+                <li>インタラクティブ機能の強化</li>
+                <li>ナビゲーション・UX改善</li>
+            </ul>
+
+            <h3>3. 確認ポイント</h3>
+            <ul>
+                <li>未実装ページの要否判断</li>
+                <li>改善提案へのフィードバック</li>
+                <li>Power BI実装時の優先度設定</li>
+            </ul>
+        </div>
+
+        <!-- スライド3: 開発方針 -->
+        <div class="slide">
+            <div class="slide-number">3</div>
+            <h1>1. モックアップ化の概要</h1>
+
+            <h2>開発方針</h2>
+
+            <div class="status-box">
+                <h4>基本コンセプト</h4>
+                <ul>
+                    <li><span class="highlight">元資料（PDFレポート）を忠実に再現</span> - デザイン、カラースキーム、データ構造を元資料に準拠</li>
+                    <li><span class="highlight">データ可視化に特化</span> - Power BI実装を見据え、考察文はP.4のみ保持（その他は削除済み）</li>
+                    <li><span class="highlight">架空データ完全排除</span> - 全てのブランド名、BU名、企業名は元資料に実在するもののみ使用</li>
+                    <li><span class="highlight">単一HTMLファイル</span> - JavaScriptタブ切り替え、外部依存なし（画像・フォント除く）</li>
+                </ul>
+            </div>
+
+            <h2>実装統計</h2>
+            <div style="margin: 30px 0;">
+                <span class="metric">総行数: 6,489行</span>
+                <span class="metric">9メインページ</span>
+                <span class="metric">7 Appendixサブタブ</span>
+                <span class="metric">15グラフ実装</span>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 18px;">
+                <strong>実装率:</strong> <span class="kirin-red">23/41ページ（約56%）</span><br>
+                <span style="font-size: 14px; color: #666;">※表紙・目次・セクション分割ページを除く</span>
+            </p>
+        </div>
+
+        <!-- スライド4: 実装済みページ一覧 -->
+        <div class="slide">
+            <div class="slide-number">4</div>
+            <h1>実装済みページ一覧（23ページ）</h1>
+
+            <h3>定型ページ（9ページ）- 実装率100%</h3>
+            <table>
+                <tr>
+                    <th style="width: 15%;">ページ</th>
+                    <th style="width: 35%;">タイトル</th>
+                    <th>特徴</th>
+                </tr>
+                <tr>
+                    <td><strong>P.4</strong></td>
+                    <td>エグゼクティブサマリ</td>
+                    <td>事業利益・売上収益、HS領域・食領域別内訳、考察文保持</td>
+                </tr>
+                <tr>
+                    <td><strong>P.6</strong></td>
+                    <td>定量サマリ</td>
+                    <td>連結+単社2段構成、単月・累月左右並び、評価列（●）付き</td>
+                </tr>
+                <tr>
+                    <td><strong>P.7-8</strong></td>
+                    <td>連結損益構造</td>
+                    <td>ウォーターフォール図、単月・累月左右並び</td>
+                </tr>
+                <tr>
+                    <td><strong>P.9</strong></td>
+                    <td>単社BU別損益</td>
+                    <td>5BU（量販・CVS・自販・受託・EC）の損益詳細</td>
+                </tr>
+                <tr>
+                    <td><strong>P.10</strong></td>
+                    <td>単社ブランド別損益</td>
+                    <td>3大基盤ブランド（プラズマ・午後の紅茶・生茶）損益</td>
+                </tr>
+                <tr>
+                    <td><strong>P.11</strong></td>
+                    <td>単社変動費高比分析</td>
+                    <td>BU別変動費高比、量販BU詳細分析、横並びレイアウト</td>
+                </tr>
+                <tr>
+                    <td><strong>P.12</strong></td>
+                    <td>連結年間推移</td>
+                    <td>1月開始の年間事業利益推移（1月決算対応）</td>
+                </tr>
+                <tr>
+                    <td><strong>P.14-20</strong></td>
+                    <td>単社ブランド概況（7ページ）</td>
+                    <td>15グラフ実装（主要トレンド3＋市場分析12）、4タブ構造</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- スライド5: 実装済みAppendix -->
+        <div class="slide">
+            <div class="slide-number">5</div>
+            <h1>実装済みAppendix（7ページ）</h1>
+
+            <table>
+                <tr>
+                    <th style="width: 15%;">ページ</th>
+                    <th style="width: 35%;">タイトル</th>
+                    <th>特徴</th>
+                </tr>
+                <tr>
+                    <td><strong>P.30</strong></td>
+                    <td>単社市場・シェア</td>
+                    <td>清涼飲料市場競合実績、11社データ、2テーブル横並び</td>
+                </tr>
+                <tr>
+                    <td><strong>P.36</strong></td>
+                    <td>連結領域別PL</td>
+                    <td>HS領域・食領域の詳細損益計算書</td>
+                </tr>
+                <tr>
+                    <td><strong>P.37-38</strong></td>
+                    <td>連結増減分析</td>
+                    <td>15項目ウォーターフォール分析、対期央/対前年2タブ</td>
+                </tr>
+                <tr>
+                    <td><strong>P.39-42</strong></td>
+                    <td>単社販売実績</td>
+                    <td>ブランド別/容器別/チャネル別、3サブタブ構造</td>
+                </tr>
+                <tr>
+                    <td><strong>P.43</strong></td>
+                    <td>単社原材料</td>
+                    <td>原材料コストアップ・ダウン詳細（対期央/対前年）</td>
+                </tr>
+                <tr>
+                    <td><strong>P.46</strong></td>
+                    <td>単社コスト・価格</td>
+                    <td>BU別売上高単価差異＋変動費高比、4テーブル横並び</td>
+                </tr>
+                <tr>
+                    <td><strong>P.47</strong></td>
+                    <td>単社チャネル別PL</td>
+                    <td>16チャネル×22列、千箱・百万円・円/箱単位</td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 40px; padding: 20px; background-color: #E8F5E9; border-left: 5px solid #4CAF50;">
+                <p style="font-size: 18px;"><strong>実装済みの強み:</strong></p>
+                <ul style="margin-top: 10px;">
+                    <li>定型ページ100%実装により、月次レポートのコア機能は完備</li>
+                    <li>ブランド概況の15グラフで時系列可視化を実現</li>
+                    <li>Appendixで詳細データへのドリルダウンが可能</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド6: 未実装ページ一覧 -->
+        <div class="slide">
+            <div class="slide-number">6</div>
+            <h1>未実装ページ一覧（18ページ）</h1>
+
+            <h3>本日の論点セクション（8ページ）</h3>
+            <table>
+                <tr>
+                    <th style="width: 15%;">ページ</th>
+                    <th>タイトル・内容</th>
+                    <th style="width: 15%;">重要度</th>
+                </tr>
+                <tr>
+                    <td><strong>P.22</strong></td>
+                    <td>本日の論点トピックス - 年間着地見込199億円（目標200億円△1億円）</td>
+                    <td><span class="priority-high">高</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.24</strong></td>
+                    <td>論点① 25年着地見込詳細 - 3Q見通し・12月単月見通し</td>
+                    <td><span class="priority-high">高</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.26-28</strong></td>
+                    <td>論点② 2026年度計画リスク・チャンスのアップデート - 緑茶葉高騰リスク△21.2億円等</td>
+                    <td><span class="priority-high">高</span></td>
+                </tr>
+            </table>
+
+            <h3>Appendix追加詳細（10ページ）</h3>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <th style="width: 15%;">ページ</th>
+                    <th>タイトル・内容</th>
+                    <th style="width: 15%;">重要度</th>
+                </tr>
+                <tr>
+                    <td><strong>P.31</strong></td>
+                    <td>新商品・RN（新商品・リニューアル情報）</td>
+                    <td><span class="priority-medium">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.32-35</strong></td>
+                    <td>詳細財務データ（期央予算・前年実績比較）</td>
+                    <td><span class="priority-low">低</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.44</strong></td>
+                    <td>廃棄・余剰品拡売関連の状況</td>
+                    <td><span class="priority-medium">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.45</strong></td>
+                    <td>一般管理費・固定費販促費・広告費・販売機器費管理状況</td>
+                    <td><span class="priority-medium">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.48</strong></td>
+                    <td>ヘルスサイエンス領域ブランド別損益</td>
+                    <td><span class="priority-medium">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P.49-50</strong></td>
+                    <td>CVS計データ（12月累月予測）、iMUSEブランド詳細損益</td>
+                    <td><span class="priority-low">低</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- スライド7: 改善提案1 - グラフ追加 -->
+        <div class="slide">
+            <div class="slide-number">7</div>
+            <h1>2. さらなる改善提案</h1>
+
+            <h2>提案① グラフ・可視化の追加</h2>
+
+            <div class="proposal-box">
+                <h4>【背景】</h4>
+                <p>現状のモックアップは表形式のデータが中心。Power BIの強みである「時系列推移」「比較分析」を最大限活用するため、以下のグラフ追加を提案します。</p>
+            </div>
+
+            <h3>追加提案グラフ一覧</h3>
+
+            <h4>1️⃣ P.6 定量サマリ - 月次推移グラフ</h4>
+            <ul>
+                <li><strong>グラフ種類:</strong> 折れ線グラフ（複合）+ 棒グラフ</li>
+                <li><strong>表示内容:</strong> 事業利益率・売上収益の月次推移（過去12か月）、予算線との比較</li>
+                <li><strong>効果:</strong> トレンド把握、予算との乖離を視覚的に確認</li>
+            </ul>
+
+            <h4>2️⃣ P.9 単社BU別損益 - BU別比較グラフ</h4>
+            <ul>
+                <li><strong>グラフ種類:</strong> 積み上げ棒グラフ + ウォーターフォール図</li>
+                <li><strong>表示内容:</strong> 5BU（量販・CVS・自販・受託・EC）の売上構成比、利益貢献度</li>
+                <li><strong>効果:</strong> BU間の構成比・貢献度を一目で把握</li>
+            </ul>
+
+            <h4>3️⃣ P.11 変動費高比分析 - トレンド分析グラフ</h4>
+            <ul>
+                <li><strong>グラフ種類:</strong> 折れ線グラフ（複数系列）</li>
+                <li><strong>表示内容:</strong> BU別変動費高比の月次推移（過去6-12か月）</li>
+                <li><strong>効果:</strong> 変動費高比悪化の傾向把握、早期アラート</li>
+            </ul>
+
+            <h4>4️⃣ P.30 市場シェア - シェア推移グラフ</h4>
+            <ul>
+                <li><strong>グラフ種類:</strong> 折れ線グラフ（競合比較）</li>
+                <li><strong>表示内容:</strong> KBC vs 主要競合（CCJC, SU, I）のシェア推移（過去12か月）</li>
+                <li><strong>効果:</strong> 競合動向の可視化、市場ポジション把握</li>
+            </ul>
+        </div>
+
+        <!-- スライド8: 改善提案2 - インタラクティブ機能 -->
+        <div class="slide">
+            <div class="slide-number">8</div>
+            <h2>提案② インタラクティブ機能の強化</h2>
+
+            <div class="proposal-box">
+                <h4>【Power BI実装時の追加機能】</h4>
+                <p>HTMLモックアップでは静的表示のみですが、Power BI実装時には以下のインタラクティブ機能を追加することで、ユーザー体験が大幅に向上します。</p>
+            </div>
+
+            <h3>1. ドリルダウン機能</h3>
+            <table>
+                <tr>
+                    <th style="width: 25%;">ページ</th>
+                    <th style="width: 35%;">ドリルダウン元</th>
+                    <th>ドリルダウン先</th>
+                </tr>
+                <tr>
+                    <td><strong>P.6 → P.9</strong></td>
+                    <td>定量サマリ（単社全体）</td>
+                    <td>BU別損益詳細</td>
+                </tr>
+                <tr>
+                    <td><strong>P.9 → P.47</strong></td>
+                    <td>BU別損益</td>
+                    <td>チャネル別損益詳細</td>
+                </tr>
+                <tr>
+                    <td><strong>P.10 → P.14-20</strong></td>
+                    <td>ブランド別損益</td>
+                    <td>ブランド概況（市場分析）</td>
+                </tr>
+                <tr>
+                    <td><strong>P.11 → P.46</strong></td>
+                    <td>変動費高比分析</td>
+                    <td>BU別単価差異・変動費高比詳細</td>
+                </tr>
+            </table>
+
+            <h3 style="margin-top: 40px;">2. フィルタ・スライサー機能</h3>
+            <ul>
+                <li><strong>期間フィルタ:</strong> 年度・四半期・月度を選択可能（現在は11月固定）</li>
+                <li><strong>比較軸切替:</strong> 対期央 ⇔ 対前年 ⇔ 対期初をワンクリックで切替</li>
+                <li><strong>BU/ブランドフィルタ:</strong> 特定のBU・ブランドに絞り込み表示</li>
+                <li><strong>領域フィルタ:</strong> HS領域 / 食領域の切替</li>
+            </ul>
+
+            <h3 style="margin-top: 40px;">3. ツールチップ機能</h3>
+            <ul>
+                <li><strong>データポイントホバー:</strong> グラフ上の任意のポイントにカーソルを合わせると詳細データ表示</li>
+                <li><strong>考察表示:</strong> 各指標の変動要因・考察をツールチップで表示（モックアップでは削除済み）</li>
+                <li><strong>計算式表示:</strong> 変動費高比・限界利益率等の計算式をツールチップで表示</li>
+            </ul>
+        </div>
+
+        <!-- スライド9: 改善提案3 - ナビゲーション -->
+        <div class="slide">
+            <div class="slide-number">9</div>
+            <h2>提案③ ナビゲーション・UX改善</h2>
+
+            <h3>1. ダッシュボードホーム画面の追加</h3>
+            <div class="proposal-box">
+                <p><strong>概要:</strong> エグゼクティブサマリ（P.4）を起点に、主要KPIカードを配置したホーム画面を新設</p>
+                <p><strong>表示内容:</strong></p>
+                <ul>
+                    <li>事業利益・売上収益（連結/単社）の当月・累月実績</li>
+                    <li>対期央・対前年の達成状況（●評価付き）</li>
+                    <li>主要ブランド（プラズマ・午後の紅茶・生茶）のミニトレンドグラフ</li>
+                    <li>アラート表示（予算未達・変動費高比悪化等）</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 30px;">2. ブレッドクラム（パンくずリスト）の追加</h3>
+            <ul>
+                <li>現在位置を常に表示（例: ホーム > 決算概況 > 単社BU別損益）</li>
+                <li>上位階層への戻りを1クリックで実現</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;">3. クイックアクセスメニュー</h3>
+            <ul>
+                <li>よく見るページをお気に入り登録</li>
+                <li>前回表示ページを記憶（セッション継続）</li>
+                <li>検索機能（ブランド名・BU名・指標名で検索）</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;">4. レスポンシブ対応</h3>
+            <ul>
+                <li>現在のモックアップは1920x1080固定</li>
+                <li>Power BI実装時はタブレット・スマホ表示も考慮</li>
+                <li>テーブル列数の動的調整、グラフサイズの最適化</li>
+            </ul>
+        </div>
+
+        <!-- スライド10: 確認ポイント1 -->
+        <div class="slide">
+            <div class="slide-number">10</div>
+            <h1>3. 確認ポイント</h1>
+
+            <h2>確認① 未実装ページの要否判断</h2>
+
+            <div class="question-box">
+                <h4>質問: 以下の未実装ページについて、Power BI実装時の優先度をご確認ください</h4>
+            </div>
+
+            <h3>A. 本日の論点セクション（P.22-28）</h3>
+            <table>
+                <tr>
+                    <th style="width: 70%;">検討ポイント</th>
+                    <th>実装の要否</th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>論点①:</strong> 25年着地見込（P.24）<br>
+                        <span style="font-size: 14px;">- 3Q見通し、12月単月見通し等の予測データ</span>
+                    </td>
+                    <td style="text-align: center;"><span class="checkbox"></span>必要<br><span class="checkbox"></span>不要</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>論点②:</strong> 2026年度計画リスク・チャンス（P.26-28）<br>
+                        <span style="font-size: 14px;">- 緑茶葉高騰リスク、収益改善策等の戦略データ</span>
+                    </td>
+                    <td style="text-align: center;"><span class="checkbox"></span>必要<br><span class="checkbox"></span>不要</td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 20px; padding: 15px; background-color: #FFF9C4; border-left: 5px solid #FFB400;">
+                <strong>備考:</strong> 本日の論点は経営層向け戦略ページ。月次で内容が変動するため、Power BIでの定型化が難しい可能性あり。PowerPointスライドとの併用も検討。
+            </p>
+
+            <h3 style="margin-top: 40px;">B. Appendix追加詳細（P.31-35, P.44-45, P.48-50）</h3>
+            <table>
+                <tr>
+                    <th style="width: 70%;">検討ポイント</th>
+                    <th>実装の要否</th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>新商品・RN情報（P.31）</strong><br>
+                        <span style="font-size: 14px;">- 新商品・リニューアル情報の一覧</span>
+                    </td>
+                    <td style="text-align: center;"><span class="checkbox"></span>必要<br><span class="checkbox"></span>不要</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>廃棄・余剰品拡売（P.44）、費用管理（P.45）</strong><br>
+                        <span style="font-size: 14px;">- 廃棄状況、一般管理費・広告費等の詳細</span>
+                    </td>
+                    <td style="text-align: center;"><span class="checkbox"></span>必要<br><span class="checkbox"></span>不要</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>HS領域詳細（P.48-50）</strong><br>
+                        <span style="font-size: 14px;">- ヘルスサイエンス領域・iMUSEブランド詳細損益</span>
+                    </td>
+                    <td style="text-align: center;"><span class="checkbox"></span>必要<br><span class="checkbox"></span>不要</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- スライド11: 確認ポイント2 -->
+        <div class="slide">
+            <div class="slide-number">11</div>
+            <h2>確認② 改善提案へのフィードバック</h2>
+
+            <div class="question-box">
+                <h4>質問: 提案した改善案について、優先度とフィードバックをご確認ください</h4>
+            </div>
+
+            <h3>グラフ追加の優先度</h3>
+            <table>
+                <tr>
+                    <th style="width: 60%;">提案内容</th>
+                    <th style="width: 15%;">優先度</th>
+                    <th>備考・要望</th>
+                </tr>
+                <tr>
+                    <td>P.6 定量サマリ - 月次推移グラフ</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+                <tr>
+                    <td>P.9 単社BU別損益 - BU別比較グラフ</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+                <tr>
+                    <td>P.11 変動費高比分析 - トレンド分析グラフ</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+                <tr>
+                    <td>P.30 市場シェア - シェア推移グラフ</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+            </table>
+
+            <h3 style="margin-top: 40px;">インタラクティブ機能の優先度</h3>
+            <table>
+                <tr>
+                    <th style="width: 60%;">機能</th>
+                    <th style="width: 15%;">優先度</th>
+                    <th>備考・要望</th>
+                </tr>
+                <tr>
+                    <td>ドリルダウン機能（ページ間遷移）</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+                <tr>
+                    <td>期間フィルタ・比較軸切替</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+                <tr>
+                    <td>ツールチップ機能（詳細データ・考察表示）</td>
+                    <td style="text-align: center;">
+                        <span class="checkbox"></span>高<br>
+                        <span class="checkbox"></span>中<br>
+                        <span class="checkbox"></span>低
+                    </td>
+                    <td style="font-size: 13px; color: #666;"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- スライド12: 確認ポイント3 -->
+        <div class="slide">
+            <div class="slide-number">12</div>
+            <h2>確認③ Power BI実装時の優先度設定</h2>
+
+            <div class="question-box">
+                <h4>質問: Power BI実装のフェーズ分けについて、ご意見をお聞かせください</h4>
+            </div>
+
+            <h3>推奨実装フェーズ</h3>
+
+            <h4>フェーズ1: 基盤構築（優先度: 最高）</h4>
+            <ul>
+                <li>✅ 既に実装済みの23ページを Power BI に移行</li>
+                <li>✅ データソース接続（Azure SQL Database等）</li>
+                <li>✅ 基本的なタブ切り替え・ナビゲーション実装</li>
+                <li><strong>期間目安:</strong> 2-3か月</li>
+            </ul>
+
+            <h4 style="margin-top: 30px;">フェーズ2: 機能拡張（優先度: 高）</h4>
+            <ul>
+                <li>提案①のグラフ追加（4ページ分）</li>
+                <li>期間フィルタ・比較軸切替機能</li>
+                <li>ドリルダウン機能（主要4-5ルート）</li>
+                <li>未実装ページのうち優先度「高」のページ追加</li>
+                <li><strong>期間目安:</strong> 1-2か月</li>
+            </ul>
+
+            <h4 style="margin-top: 30px;">フェーズ3: 高度化（優先度: 中）</h4>
+            <ul>
+                <li>ツールチップ機能・考察表示</li>
+                <li>ダッシュボードホーム画面・アラート機能</li>
+                <li>レスポンシブ対応（タブレット・スマホ）</li>
+                <li>未実装ページのうち優先度「中」のページ追加</li>
+                <li><strong>期間目安:</strong> 1-2か月</li>
+            </ul>
+
+            <div style="margin-top: 40px; padding: 20px; background-color: #E3F2FD; border-left: 5px solid #1976D2;">
+                <p style="font-size: 16px;"><strong>📌 確認事項:</strong></p>
+                <ul style="margin-top: 10px; font-size: 15px;">
+                    <li>上記のフェーズ分けで問題ないか？</li>
+                    <li>各フェーズの優先順位に変更はないか？</li>
+                    <li>追加で実装すべき機能・ページはないか？</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド13: その他確認事項 -->
+        <div class="slide">
+            <div class="slide-number">13</div>
+            <h2>確認④ デザイン・レイアウトについて</h2>
+
+            <div class="question-box">
+                <h4>質問: 現在のモックアップのデザイン・レイアウトについて、フィードバックをお願いします</h4>
+            </div>
+
+            <h3>カラースキーム</h3>
+            <table>
+                <tr>
+                    <th style="width: 25%;">要素</th>
+                    <th style="width: 25%;">現在の色</th>
+                    <th>フィードバック</th>
+                </tr>
+                <tr>
+                    <td>ヘッダー・枠線</td>
+                    <td style="background-color: #1B325A; color: white; text-align: center; padding: 10px;">濃紺 #1B325A</td>
+                    <td style="font-size: 13px; color: #666;"><span class="checkbox"></span>問題なし<br><span class="checkbox"></span>変更希望（理由：　　　　　　）</td>
+                </tr>
+                <tr>
+                    <td>キリンレッド（強調）</td>
+                    <td style="background-color: #DC0000; color: white; text-align: center; padding: 10px;">赤 #DC0000</td>
+                    <td style="font-size: 13px; color: #666;"><span class="checkbox"></span>問題なし<br><span class="checkbox"></span>変更希望（理由：　　　　　　）</td>
+                </tr>
+                <tr>
+                    <td>達成（緑）</td>
+                    <td style="background-color: #64C864; color: white; text-align: center; padding: 10px;">緑 #64C864</td>
+                    <td style="font-size: 13px; color: #666;"><span class="checkbox"></span>問題なし<br><span class="checkbox"></span>変更希望（理由：　　　　　　）</td>
+                </tr>
+                <tr>
+                    <td>未達（赤）</td>
+                    <td style="background-color: #C86464; color: white; text-align: center; padding: 10px;">赤 #C86464</td>
+                    <td style="font-size: 13px; color: #666;"><span class="checkbox"></span>問題なし<br><span class="checkbox"></span>変更希望（理由：　　　　　　）</td>
+                </tr>
+            </table>
+
+            <h3 style="margin-top: 40px;">レイアウト・その他</h3>
+            <ul>
+                <li><span class="checkbox"></span> マイナス表記「△」記号は適切か？（代替案：「-」記号、赤色強調等）</li>
+                <li><span class="checkbox"></span> 単月・累月の左右並びレイアウトは見やすいか？</li>
+                <li><span class="checkbox"></span> テーブルのフォントサイズ（10-11px）は適切か？</li>
+                <li><span class="checkbox"></span> Appendixのサブタブ構造（7タブ）は分かりやすいか？</li>
+                <li><span class="checkbox"></span> グラフの凡例配置・色使いは適切か？（ブランド概況P.14-20）</li>
+            </ul>
+
+            <div style="margin-top: 30px; padding: 15px; background-color: #FFF9C4;">
+                <p style="font-size: 14px;"><strong>その他のコメント・要望:</strong></p>
+                <div style="border: 1px solid #ccc; background-color: white; height: 100px; margin-top: 10px;"></div>
+            </div>
+        </div>
+
+        <!-- スライド14: まとめ -->
+        <div class="slide">
+            <div class="slide-number">14</div>
+            <h1>まとめ</h1>
+
+            <h2>モックアップの現状</h2>
+            <div class="status-box">
+                <ul>
+                    <li><strong>実装率56%（23/41ページ）</strong>で、月次PDCAレポートのコア機能は完備</li>
+                    <li>定型ページ100%実装により、基本的なダッシュボード構造は確立</li>
+                    <li>元資料に忠実なデザイン・データ構造で、Power BI移行の準備が整っている</li>
+                </ul>
+            </div>
+
+            <h2 style="margin-top: 40px;">本日の確認事項</h2>
+            <div class="question-box">
+                <ol style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                    <li><strong>未実装ページの要否判断</strong> - 特に「本日の論点」セクション（P.22-28）の扱い</li>
+                    <li><strong>グラフ追加の優先度</strong> - 4つの提案グラフの実装順位</li>
+                    <li><strong>インタラクティブ機能</strong> - ドリルダウン・フィルタ・ツールチップの優先度</li>
+                    <li><strong>Power BI実装のフェーズ分け</strong> - 3フェーズ構成で問題ないか</li>
+                    <li><strong>デザイン・レイアウト</strong> - 色使い・表示形式の変更要望</li>
+                </ol>
+            </div>
+
+            <h2 style="margin-top: 40px;">次のステップ</h2>
+            <ol style="margin-left: 30px; line-height: 2; font-size: 16px;">
+                <li>本日のフィードバックを元に、未実装ページの追加実装を検討</li>
+                <li>優先度の高いグラフ追加をHTMLモックアップで試作</li>
+                <li>Power BI実装の詳細スケジュール策定</li>
+                <li>データソース（Azure SQL Database等）との接続仕様確定</li>
+            </ol>
+
+            <div style="margin-top: 60px; text-align: center; padding: 30px; background-color: #f5f5f5; border-radius: 8px;">
+                <p style="font-size: 24px; color: #1B325A; font-weight: bold;">ご清聴ありがとうございました</p>
+                <p style="font-size: 16px; color: #666; margin-top: 15px;">2026年1月28日</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 印刷用のページ番号自動生成（必要に応じて）
+        window.onload = function() {
+            console.log('レビュー資料ロード完了');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+/* CSS Variables */
+:root {
+  /* Colors */
+  --color-primary: #1B325A;
+  --color-primary-light: #2a4a7f;
+  --color-accent: #DC0000;
+  --color-achieved: #64C864;
+  --color-achieved-bg: rgba(100, 200, 100, 0.12);
+  --color-warning: #FFB400;
+  --color-warning-bg: rgba(255, 180, 0, 0.12);
+  --color-missed: #C86464;
+  --color-missed-bg: rgba(200, 100, 100, 0.12);
+  --color-bg: #F0F2F8;
+  --color-surface: #FFFFFF;
+  --color-border: #E2E5EE;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-text-positive: #2563eb;
+  --color-text-negative: #DC0000;
+  --color-table-header: #1B325A;
+  --color-table-stripe: #F8F9FC;
+  --color-table-hover: #EEF1F8;
+  --color-table-total: #D9E7F3;
+  --color-table-grand-total: #C5D9ED;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-panel: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --shadow-header: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --font-family: 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', sans-serif;
+  --font-size-kpi: 28px;
+  --font-size-kpi-label: 11px;
+  --font-size-heading: 14px;
+  --font-size-body: 12px;
+  --font-size-small: 10px;
+  --font-size-tiny: 9px;
+
+  /* Spacing (8px grid) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+/* Utility classes */
+.text-negative {
+  color: var(--color-text-negative);
+}
+
+.text-positive {
+  color: var(--color-text-positive);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+/* Conditional format backgrounds */
+.cf-achieved {
+  background-color: var(--color-achieved-bg) !important;
+}
+
+.cf-warning {
+  background-color: var(--color-warning-bg) !important;
+}
+
+.cf-missed {
+  background-color: var(--color-missed-bg) !important;
+}

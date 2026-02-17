@@ -1,0 +1,118 @@
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-sm) var(--space-md);
+  border-left: 4px solid var(--color-border);
+  transition: box-shadow var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+}
+
+.card.clickable {
+  cursor: pointer;
+}
+
+.card.clickable:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.signalGreen {
+  border-left-color: var(--color-achieved);
+}
+
+.signalYellow {
+  border-left-color: var(--color-warning);
+}
+
+.signalRed {
+  border-left-color: var(--color-missed);
+}
+
+.label {
+  font-size: var(--font-size-kpi-label);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.drillIcon {
+  opacity: 0.4;
+  transition: opacity var(--transition-fast);
+}
+
+.card.clickable:hover .drillIcon {
+  opacity: 0.8;
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.value {
+  font-size: var(--font-size-kpi);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.unit {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.ratio {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+}
+
+.achieved {
+  color: var(--color-achieved);
+}
+
+.warning {
+  color: var(--color-warning);
+}
+
+.missed {
+  color: var(--color-missed);
+}
+
+.none {
+  color: var(--color-text-secondary);
+}
+
+.trend {
+  font-size: 8px;
+}
+
+.trendUp {
+  color: var(--color-achieved);
+}
+
+.trendDown {
+  color: var(--color-missed);
+}
+
+.trendFlat {
+  color: var(--color-text-secondary);
+}
+
+.sparkline {
+  margin-left: auto;
+  line-height: 0;
+}
+

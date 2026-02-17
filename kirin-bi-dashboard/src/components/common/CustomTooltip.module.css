@@ -1,0 +1,41 @@
+.tooltip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card-hover);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-small);
+}
+
+.label {
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 2px 0;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.name {
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.value {
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: right;
+}

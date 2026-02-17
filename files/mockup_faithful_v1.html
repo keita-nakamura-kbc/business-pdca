@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>月次PDCA BI化モック - PDF忠実再現版</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Yu Gothic UI', 'Meiryo', 'MS PGothic', sans-serif;
+            background: #fff;
+            color: #333;
+            width: 1920px;
+            min-height: 1080px;
+        }
+
+        /* ヘッダー：KIRIN企業スタイル */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 24px;
+            border-bottom: 3px solid #E60012;
+        }
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .page-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .kirin-logo {
+            background: #E60012;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .kirin-logo .tagline {
+            font-size: 10px;
+            font-weight: normal;
+            margin-bottom: 2px;
+        }
+
+        /* メインコンテンツ */
+        .main-content {
+            padding: 16px 24px;
+        }
+
+        /* セクションボックス */
+        .section-box {
+            border: 2px solid #0056b3;
+            margin-bottom: 16px;
+        }
+        .section-header {
+            background: #0056b3;
+            color: white;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .section-body {
+            padding: 12px;
+            background: #fff;
+        }
+
+        /* KPIカード群 */
+        .kpi-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+        .kpi-card {
+            flex: 1;
+        }
+        .kpi-card .label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .kpi-card .period {
+            font-size: 12px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .kpi-card .value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #E60012;
+        }
+        .kpi-card .unit {
+            font-size: 16px;
+            color: #333;
+            margin-left: 4px;
+        }
+        .kpi-card .sub-value {
+            font-size: 14px;
+            color: #666;
+            margin-left: 8px;
+        }
+        .kpi-card .comparison {
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+        .kpi-card .comparison .negative {
+            color: #E60012;
+        }
+        .kpi-card .comparison .positive {
+            color: #0066CC;
+        }
+
+        /* 2カラムレイアウト */
+        .two-column {
+            display: flex;
+            gap: 24px;
+        }
+        .column-left {
+            flex: 1;
+        }
+        .column-right {
+            flex: 1.2;
+        }
+
+        /* テーブルスタイル */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            text-align: right;
+        }
+        .data-table th {
+            background: #f5f5f5;
+            font-weight: bold;
+            text-align: center;
+        }
+        .data-table .row-header {
+            background: #f9f9f9;
+            text-align: left;
+            font-weight: bold;
+        }
+        .data-table .highlight-row {
+            background: #fff8e6;
+        }
+        .data-table .negative {
+            color: #E60012;
+        }
+        .data-table .positive {
+            color: #0066CC;
+        }
+        /* 達成状況カラー */
+        .status-achieved { background: #90EE90; }
+        .status-partial { background: #FFD700; }
+        .status-missed { background: #FFB6C1; }
+
+        /* 箇条書きリスト */
+        .bullet-list {
+            font-size: 13px;
+            line-height: 1.8;
+            padding-left: 20px;
+        }
+        .bullet-list li {
+            margin-bottom: 8px;
+        }
+        .bullet-list .highlight {
+            font-weight: bold;
+            color: #E60012;
+        }
+        .bullet-list .emphasis {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* 論点セクション */
+        .ronten-box {
+            background: #FFF8DC;
+            border: 2px solid #DAA520;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        .ronten-header {
+            background: #DAA520;
+            color: white;
+            padding: 4px 8px;
+            font-size: 13px;
+            font-weight: bold;
+            margin: -12px -12px 12px -12px;
+        }
+        .ronten-list {
+            font-size: 13px;
+            padding-left: 20px;
+        }
+
+        /* フッター */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 24px;
+            font-size: 11px;
+            color: #666;
+            border-top: 1px solid #ccc;
+            background: #fff;
+        }
+        .page-number {
+            font-weight: bold;
+        }
+
+        /* ナビゲーションタブ（BI追加要素） */
+        .nav-tabs {
+            display: flex;
+            background: #f0f0f0;
+            border-bottom: 2px solid #0056b3;
+            padding: 0 24px;
+        }
+        .nav-tab {
+            padding: 10px 20px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            background: transparent;
+            color: #666;
+        }
+        .nav-tab:hover {
+            background: #e0e0e0;
+        }
+        .nav-tab.active {
+            background: #fff;
+            color: #0056b3;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #fff;
+            margin-bottom: -2px;
+        }
+
+        /* スライサー（BI追加要素） */
+        .slicer-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 8px 24px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+        }
+        .slicer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .slicer-item label {
+            font-size: 12px;
+            color: #666;
+        }
+        .slicer-item select {
+            padding: 4px 8px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <div class="header">
+        <div>
+            <div class="page-title">エグゼクティブサマリ</div>
+            <div class="page-subtitle">KBCグループ 2025年事業計画 11月度 月次PDCA</div>
+        </div>
+        <div class="kirin-logo">
+            <span class="tagline">よろこびがつなぐ世界へ</span>
+            <span>KIRIN</span>
+        </div>
+    </div>
+
+    <!-- ナビゲーションタブ（BI機能） -->
+    <div class="nav-tabs">
+        <div class="nav-tab active">エグゼクティブサマリ</div>
+        <div class="nav-tab">決算概況</div>
+        <div class="nav-tab">ブランド概況</div>
+        <div class="nav-tab">本日の論点</div>
+        <div class="nav-tab">Appendix</div>
+    </div>
+
+    <!-- スライサー（BI機能） -->
+    <div class="slicer-bar">
+        <div class="slicer-item">
+            <label>対象月:</label>
+            <select>
+                <option>11月度</option>
+                <option>10月度</option>
+                <option>8月度</option>
+                <option>7月度</option>
+            </select>
+        </div>
+        <div class="slicer-item">
+            <label>期間:</label>
+            <select>
+                <option>累月</option>
+                <option>単月</option>
+            </select>
+        </div>
+        <div class="slicer-item">
+            <label>比較:</label>
+            <select>
+                <option>対期央</option>
+                <option>対前年</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="main-content">
+        <!-- 11月財務状況 -->
+        <div class="section-box">
+            <div class="section-header">11月財務状況</div>
+            <div class="section-body">
+                <div class="kpi-row">
+                    <div class="kpi-card">
+                        <div class="period">【11月累月】</div>
+                        <div class="label">事業利益</div>
+                        <div>
+                            <span class="value">207.1</span>
+                            <span class="unit">億円</span>
+                            <span class="sub-value">利益率 8.4%</span>
+                        </div>
+                        <div class="comparison">
+                            対期央： <span class="negative">△2.9億円</span>(±0.0pt)<br>
+                            対前年： <span class="positive">+19.3億円</span>(+0.8pt)
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="period">【11月累月】</div>
+                        <div class="label">売上収益</div>
+                        <div>
+                            <span class="value">2,465.7</span>
+                            <span class="unit">億円</span>
+                        </div>
+                        <div class="comparison">
+                            対期央：<span class="negative">△35.6億円</span><br>
+                            対前年： <span class="positive">+3.1億円</span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="bullet-list">
+                    <li>11月単月の事業利益は対期央+2.1億円(HS△2.4億円、食+4.5億円)。<br>
+                        量販変動費高比の悪化(※P.11詳細)により限界利益では対期央△2.3億円であるが、<br>
+                        固定費未消化、及び連結子会社の利益が計画を上回ったことで事業利益達成で着地。</li>
+                    <li>11月累月の事業利益は207億円、12月の期末予想は単月△8億円(年間着地199億円)であり、<br>
+                        目標200億円に対して△1億円の不足。<span class="emphasis">12月販売目標の完遂</span>、及び<span class="emphasis">年内費用支出の抑制コントロール</span>を徹底し、200億円を達成する。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <!-- 左カラム：基盤ブランド -->
+            <div class="column-left">
+                <div class="section-box">
+                    <div class="section-header">11月基盤ブランド</div>
+                    <div class="section-body">
+                        <div style="font-size: 12px; margin-bottom: 8px; font-weight: bold;">基盤ブランド×限界利益　単位：億円・%</div>
+                        <table class="data-table">
+                            <tr>
+                                <th>期間</th>
+                                <th>ブランド</th>
+                                <th>25実績</th>
+                                <th>対期央</th>
+                                <th>対前年</th>
+                                <th>期央比</th>
+                                <th>前年比</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" class="row-header">11月単月</td>
+                                <td class="row-header">プラズマ乳酸菌</td>
+                                <td>774</td>
+                                <td class="positive">43</td>
+                                <td class="positive">140</td>
+                                <td class="status-achieved">105.9%</td>
+                                <td class="status-achieved">122.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="row-header">午後の紅茶</td>
+                                <td>2,046</td>
+                                <td class="negative">△87</td>
+                                <td class="negative">△187</td>
+                                <td class="status-partial">95.9%</td>
+                                <td class="status-missed">91.6%</td>
+                            </tr>
+                            <tr>
+                                <td class="row-header">生茶</td>
+                                <td>589</td>
+                                <td class="negative">△266</td>
+                                <td class="negative">△205</td>
+                                <td class="status-missed">68.9%</td>
+                                <td class="status-missed">74.2%</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td rowspan="3" class="row-header">11月累月</td>
+                                <td class="row-header">プラズマ乳酸菌</td>
+                                <td>5,938</td>
+                                <td class="negative">△917</td>
+                                <td class="positive">798</td>
+                                <td class="status-missed">86.6%</td>
+                                <td class="status-achieved">115.5%</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td class="row-header">午後の紅茶</td>
+                                <td>23,221</td>
+                                <td class="negative">△1,193</td>
+                                <td class="positive">1,329</td>
+                                <td class="status-partial">95.1%</td>
+                                <td class="status-achieved">106.1%</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td class="row-header">生茶</td>
+                                <td>8,382</td>
+                                <td class="negative">△1,939</td>
+                                <td class="negative">△1,251</td>
+                                <td class="status-missed">81.2%</td>
+                                <td class="status-missed">87.0%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 論点 -->
+                <div class="ronten-box">
+                    <div class="ronten-header">論点</div>
+                    <ul class="ronten-list">
+                        <li>25年着地見込みについて</li>
+                        <li>26年度計画リスク・チャンスのアップデート（生茶原価高騰）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 右カラム：コメント -->
+            <div class="column-right">
+                <ul class="bullet-list">
+                    <li><strong>【清涼飲料市場動向】</strong><br>
+                        11月単月の出荷状況について、主要メーカー別ではI・CCJCが前年を上回り、SU・Iは下回った。KBCは対前年93%で着地。<br>
+                        <span style="color: #666; font-size: 11px;">※A社出荷実績未公表のため、11月の市場シェアは未算出</span>
+                    </li>
+                    <li><strong>【基盤ブランド概況 限界利益】</strong>
+                        <ul style="margin-top: 8px;">
+                            <li><strong>＜11月単月＞</strong>
+                                <ul>
+                                    <li>プラズマ乳酸菌：iMUSEの販売伸長により、対期央で達成。</li>
+                                    <li>午後の紅茶：フルーツティー・新商品の販売好調により箱数は達成したが、量販BUの変動費悪化により限界利益未達となった。</li>
+                                    <li>生茶：大型・小型PETともに販売未達、また量販BU変動費悪化により限界利益未達。</li>
+                                </ul>
+                            </li>
+                            <li><strong>＜11月累月＞</strong>主に小型PETの販売未達により、各ブランド未達。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <div class="footer">
+        <span>&copy; Kirin Beverage Company, Limited　【機密性区分 重要（B)】（開示範囲：関係者限り）</span>
+        <span class="page-number">4</span>
+    </div>
+
+    <script>
+        // タブ切り替え（簡易実装）
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
