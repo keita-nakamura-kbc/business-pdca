@@ -41,6 +41,9 @@ export { buMonthlySales, buCumulativeSales } from './buTrendData';
 // ブランド別5指標
 export { brandMetricData, brandMetricDataMonthly } from './brandMetricData';
 
+// 容器別×ブランド別
+export { containerBrandData, containerBrandDataMonthly } from './containerBrandData';
+
 // Appendix
 export {
   regionalPlData,
@@ -62,6 +65,6 @@ export {
   channelSummaryMonthly,
   marketTrendMonthly,
   marketTrendCumulative,
-  marketByCompanyMonthly,
-  marketByCompanyCumulative,
+  marketMultiYearMonthly,
+  marketMultiYearCumulative,
 } from './appendixData';

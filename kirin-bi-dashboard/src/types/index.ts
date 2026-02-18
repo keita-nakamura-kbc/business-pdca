@@ -1,6 +1,7 @@
 // スライサー状態
 export interface SlicerState {
   period: 'monthly' | 'cumulative';
+  selectedMonth: number; // 1-12
 }
 
 // KPI

@@ -91,7 +91,7 @@ export function SalesBreakdownPanel({ slicer, onDrilldown }: SalesBreakdownPanel
     <div className={styles.wrapper}>
       <SectionHeader
         icon={Package}
-        title="容器別売上実績"
+        title="容器別BU売上実績"
         subtitle={isMonthly ? '単月' : '累月'}
         pageRef="41"
         interactive

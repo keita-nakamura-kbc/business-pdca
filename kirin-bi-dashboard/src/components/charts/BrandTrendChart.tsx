@@ -5,6 +5,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';
 import type { BrandMonthlyPoint } from '../../data/brandTrendData';
@@ -15,6 +16,7 @@ import styles from './BrandTrendChart.module.css';
 interface BrandTrendChartProps {
   data: BrandMonthlyPoint[];
   height?: number | `${number}%`;
+  selectedMonth?: number;
 }
 
 const BRANDS = [
@@ -90,7 +92,7 @@ function AchievementDot(props: Record<string, unknown>) {
   return <circle cx={cx} cy={cy} r={3} fill={fill} stroke={fill} strokeWidth={1} />;
 }
 
-export function BrandTrendChart({ data }: BrandTrendChartProps) {
+export function BrandTrendChart({ data, selectedMonth }: BrandTrendChartProps) {
   return (
     <div className={styles.panel}>
       <div className={styles.legend}>
@@ -190,6 +192,14 @@ export function BrandTrendChart({ data }: BrandTrendChartProps) {
                       strokeOpacity={0.5}
                       dot={false}
                     />
+                    {selectedMonth != null && (
+                      <ReferenceLine
+                        x={`${selectedMonth}月`}
+                        stroke="var(--color-accent)"
+                        strokeWidth={2}
+                        strokeOpacity={0.5}
+                      />
+                    )}
                   </LineChart>
                 </ResponsiveContainer>
               </div>

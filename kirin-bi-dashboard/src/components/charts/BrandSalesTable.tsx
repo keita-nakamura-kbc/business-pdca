@@ -1,27 +1,20 @@
 import { Fragment, useState } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import type { SlicerState } from '../../types';
-import type { ShipmentDetail } from '../../data/brandData';
+import type { ContainerBrandGroup } from '../../data/containerBrandData';
 import { StatusIcon } from '../common/StatusIcon';
 import { Sparkline } from '../common/Sparkline';
 import { useConditionalFormat } from '../../hooks/useConditionalFormat';
 import { getCellBg } from './heatmapUtils';
 import {
-  salesByBrand,
-  salesByBrandMonthly,
-  shipmentDetails,
-  shipmentDetailsMonthly,
+  containerBrandData,
+  containerBrandDataMonthly,
 } from '../../data';
 import styles from './BrandSalesTable.module.css';
 
 interface BrandSalesTableProps {
   slicer: SlicerState;
 }
-
-/** salesByBrand label → shipmentDetails brandName */
-const brandNameMap: Record<string, string> = {
-  'iMUSE': 'プラズマ乳酸菌',
-};
 
 function barStyle(value: number, colMax: number, ratio: number | undefined): React.CSSProperties {
   const barWidth = colMax > 0 ? (Math.abs(value) / colMax) * 100 : 0;
@@ -47,33 +40,37 @@ function DiffDot({ ratio }: { ratio: number | undefined }) {
   return <StatusIcon level={level} size={6} />;
 }
 
-function findShipment(label: string, details: ShipmentDetail[]): ShipmentDetail | undefined {
-  const mapped = brandNameMap[label] ?? label;
-  return details.find(d => d.brandName === mapped);
-}
-
 export function BrandSalesTable({ slicer }: BrandSalesTableProps) {
   const isMonthly = slicer.period === 'monthly';
-  const data = isMonthly ? salesByBrandMonthly : salesByBrand;
-  const shipments = isMonthly ? shipmentDetailsMonthly : shipmentDetails;
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const data: ContainerBrandGroup[] = isMonthly ? containerBrandDataMonthly : containerBrandData;
+  const [expandedContainers, setExpandedContainers] = useState<Set<string>>(new Set());
+  const [expandedBrands, setExpandedBrands] = useState<Set<string>>(new Set());
 
-  const toggle = (label: string) => {
-    setExpanded(prev => {
+  const toggleContainer = (container: string) => {
+    setExpandedContainers(prev => {
       const next = new Set(prev);
-      if (next.has(label)) next.delete(label);
-      else next.add(label);
+      if (next.has(container)) next.delete(container);
+      else next.add(container);
       return next;
     });
   };
 
-  const actualMax = Math.max(...data.map(r => r.actual));
-  const salesMax = Math.max(...data.map(r => r.salesAmount ?? 0));
+  const toggleBrand = (key: string) => {
+    setExpandedBrands(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
 
-  // Sparkline data for each brand
+  const actualMax = Math.max(...data.map(g => g.actual));
+  const salesMax = Math.max(...data.map(g => g.salesAmount ?? 0));
+
+  // Sparkline data for container rows only
   const sparklines: Record<string, number[]> = {};
-  for (const row of data) {
-    sparklines[row.label] = generateRatioTrend(row.planRatio, row.label.charCodeAt(0));
+  for (const group of data) {
+    sparklines[group.container] = generateRatioTrend(group.planRatio, group.container.charCodeAt(0));
   }
 
   return (
@@ -81,7 +78,7 @@ export function BrandSalesTable({ slicer }: BrandSalesTableProps) {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>ブランド</th>
+            <th>容器 / ブランド</th>
             <th>販売数量(千箱)</th>
             <th>売上高(億円)</th>
             <th>計画比</th>
@@ -89,74 +86,111 @@ export function BrandSalesTable({ slicer }: BrandSalesTableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.map(row => {
-            const shipment = findShipment(row.label, shipments);
-            const hasChildren = !!shipment;
-            const isExpanded = expanded.has(row.label);
+          {data.map(group => {
+            const containerExpanded = expandedContainers.has(group.container);
 
             return (
-              <Fragment key={row.label}>
+              <Fragment key={group.container}>
+                {/* Level 1: Container row */}
                 <tr
-                  className={hasChildren ? styles.parentRow : undefined}
-                  onClick={hasChildren ? () => toggle(row.label) : undefined}
+                  className={styles.parentRow}
+                  onClick={() => toggleContainer(group.container)}
                 >
-                  <td className={hasChildren ? styles.parentLabelCell : styles.labelCell}>
-                    {hasChildren ? (
-                      <div className={styles.cellContent}>
-                        {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-                        {row.label}
-                      </div>
-                    ) : row.label}
-                  </td>
-                  <td className={styles.valueCell} style={barStyle(row.actual, actualMax, row.planRatio)}>
-                    {row.actual.toLocaleString()}
-                  </td>
-                  <td className={styles.valueCell} style={barStyle(row.salesAmount ?? 0, salesMax, row.salesPlanRatio)}>
-                    {row.salesAmount !== undefined ? row.salesAmount.toFixed(1) : '—'}
-                  </td>
-                  <td className={styles.diffCell} style={{ backgroundColor: getCellBg(row.planRatio) }}>
+                  <td className={styles.parentLabelCell}>
                     <div className={styles.cellContent}>
-                      <DiffDot ratio={row.planRatio} />
-                      <span>{row.planRatio.toFixed(1)}%</span>
-                      {sparklines[row.label] && (
-                        <Sparkline data={sparklines[row.label]} width={48} height={20} color="var(--color-primary)" />
+                      {containerExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+                      {group.container}
+                    </div>
+                  </td>
+                  <td className={styles.valueCell} style={barStyle(group.actual, actualMax, group.planRatio)}>
+                    {group.actual.toLocaleString()}
+                  </td>
+                  <td className={styles.valueCell} style={barStyle(group.salesAmount ?? 0, salesMax, group.planRatio)}>
+                    {group.salesAmount !== undefined ? group.salesAmount.toFixed(1) : '—'}
+                  </td>
+                  <td className={styles.diffCell} style={{ backgroundColor: getCellBg(group.planRatio) }}>
+                    <div className={styles.cellContent}>
+                      <DiffDot ratio={group.planRatio} />
+                      <span>{group.planRatio.toFixed(1)}%</span>
+                      {sparklines[group.container] && (
+                        <Sparkline data={sparklines[group.container]} width={48} height={20} color="var(--color-primary)" />
                       )}
                     </div>
                   </td>
-                  <td className={styles.diffCell} style={{ backgroundColor: getCellBg(row.yoyRatio) }}>
+                  <td className={styles.diffCell} style={{ backgroundColor: getCellBg(group.yoyRatio) }}>
                     <div className={styles.cellContent}>
-                      <DiffDot ratio={row.yoyRatio} />
-                      <span>{row.yoyRatio.toFixed(1)}%</span>
+                      <DiffDot ratio={group.yoyRatio} />
+                      <span>{group.yoyRatio.toFixed(1)}%</span>
                     </div>
                   </td>
                 </tr>
-                {isExpanded && shipment?.items
-                  .filter(item => item.indent === 1)
-                  .map(item => (
-                    <tr
-                      key={`${row.label}-${item.label}`}
-                      className={styles.childRow}
-                    >
-                      <td className={styles.childLabelCell}>{item.label}</td>
-                      <td className={styles.valueCell}>
-                        {item.actual.toLocaleString()}
-                      </td>
-                      <td className={styles.valueCell}>—</td>
-                      <td className={styles.diffCell} style={{ backgroundColor: getCellBg(item.planRatio) }}>
-                        <div className={styles.cellContent}>
-                          <DiffDot ratio={item.planRatio} />
-                          <span>{item.planRatio.toFixed(1)}%</span>
-                        </div>
-                      </td>
-                      <td className={styles.diffCell} style={{ backgroundColor: getCellBg(item.yoyRatio) }}>
-                        <div className={styles.cellContent}>
-                          <DiffDot ratio={item.yoyRatio} />
-                          <span>{item.yoyRatio.toFixed(1)}%</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                }
+
+                {/* Level 2: Brand rows */}
+                {containerExpanded && group.brands.map(brand => {
+                  const brandKey = `${group.container}|${brand.brandName}`;
+                  const brandExpanded = expandedBrands.has(brandKey);
+                  const hasDetails = !!brand.details && brand.details.length > 0;
+
+                  return (
+                    <Fragment key={brandKey}>
+                      <tr
+                        className={hasDetails ? styles.brandRow : styles.brandRowPlain}
+                        onClick={hasDetails ? () => toggleBrand(brandKey) : undefined}
+                      >
+                        <td className={styles.brandLabelCell}>
+                          <div className={styles.cellContent}>
+                            {hasDetails && (brandExpanded ? <ChevronDown size={10} /> : <ChevronRight size={10} />)}
+                            {brand.brandName}
+                          </div>
+                        </td>
+                        <td className={styles.valueCell}>
+                          {brand.actual.toLocaleString()}
+                        </td>
+                        <td className={styles.valueCell}>
+                          {brand.salesAmount !== undefined ? brand.salesAmount.toFixed(1) : '—'}
+                        </td>
+                        <td className={styles.diffCell} style={{ backgroundColor: getCellBg(brand.planRatio) }}>
+                          <div className={styles.cellContent}>
+                            <DiffDot ratio={brand.planRatio} />
+                            <span>{brand.planRatio.toFixed(1)}%</span>
+                          </div>
+                        </td>
+                        <td className={styles.diffCell} style={{ backgroundColor: getCellBg(brand.yoyRatio) }}>
+                          <div className={styles.cellContent}>
+                            <DiffDot ratio={brand.yoyRatio} />
+                            <span>{brand.yoyRatio.toFixed(1)}%</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      {/* Level 3: Detail rows */}
+                      {brandExpanded && brand.details?.map(detail => (
+                        <tr
+                          key={`${brandKey}|${detail.label}`}
+                          className={styles.detailRow}
+                        >
+                          <td className={styles.detailLabelCell}>{detail.label}</td>
+                          <td className={styles.valueCell}>
+                            {detail.actual.toLocaleString()}
+                          </td>
+                          <td className={styles.valueCell}>—</td>
+                          <td className={styles.diffCell} style={{ backgroundColor: getCellBg(detail.planRatio) }}>
+                            <div className={styles.cellContent}>
+                              <DiffDot ratio={detail.planRatio} />
+                              <span>{detail.planRatio.toFixed(1)}%</span>
+                            </div>
+                          </td>
+                          <td className={styles.diffCell} style={{ backgroundColor: getCellBg(detail.yoyRatio) }}>
+                            <div className={styles.cellContent}>
+                              <DiffDot ratio={detail.yoyRatio} />
+                              <span>{detail.yoyRatio.toFixed(1)}%</span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </Fragment>
+                  );
+                })}
               </Fragment>
             );
           })}

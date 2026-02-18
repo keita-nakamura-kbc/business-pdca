@@ -6,56 +6,24 @@
 
 .legend {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   font-size: 10px;
   color: var(--color-text-secondary);
-  margin: 2px 0 4px;
+  margin: 2px 0 2px;
+  flex-wrap: wrap;
 }
 
 .legendItem {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .legendLine {
-  width: 20px;
+  width: 16px;
   height: 0;
-  border-top: 2px solid var(--color-text);
   display: inline-block;
-}
-
-.legendDash {
-  width: 20px;
-  height: 0;
-  border-top: 2px dashed var(--color-text-secondary);
-  display: inline-block;
-}
-
-.chartGrid {
-  display: flex;
-  gap: 4px;
-  flex: 1;
-  min-height: 0;
-}
-
-.miniChart {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.miniTitle {
-  font-size: 11px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
 }
 
 .colorDot {
@@ -65,13 +33,63 @@
   display: inline-block;
 }
 
-.yoyBadge {
-  font-size: 10px;
-  text-align: center;
+.badgeRow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
   margin-bottom: 2px;
+  flex-wrap: wrap;
+}
+
+.yoyBadge {
+  font-size: 9px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 2px;
   font-weight: 600;
+}
+
+.chartArea {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Custom tooltip */
+.tooltipBox {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tooltipLabel {
+  font-weight: 600;
+  margin-bottom: 3px;
+  font-size: 11px;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 0;
+}
+
+.tooltipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.tooltipName {
+  min-width: 32px;
+}
+
+.tooltipValue {
+  font-weight: 600;
+  margin-left: auto;
 }

@@ -126,14 +126,6 @@
   font-size: var(--font-size-body);
 }
 
-.sectionToggle {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.sectionToggle > *:first-child { flex: 1; }
-.sectionToggle svg { color: var(--color-text-secondary); }
-
 .parentChannelCell {
   display: flex;
   align-items: center;

@@ -101,7 +101,7 @@ export function DriversTab({ slicer, onDrilldown }: DriversTabProps) {
           />
         </div>
         <div className={styles.chartPanelNarrow}>
-          <SectionHeader icon={ClipboardList} title="ブランド別売上実績" subtitle={isMonthly ? '【単社】単月' : '【単社】累月'} pageRef="40" />
+          <SectionHeader icon={ClipboardList} title="容器別ブランド売上実績" subtitle={isMonthly ? '【単社】単月' : '【単社】累月'} pageRef="39-40" />
           <BrandSalesTable slicer={slicer} />
         </div>
       </div>

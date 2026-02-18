@@ -5,6 +5,7 @@ import styles from './TopBar.module.css';
 interface TopBarProps {
   activeTab: TabId;
   onTabChange: (tab: TabId) => void;
+  selectedMonth: number;
 }
 
 const tabs: { id: TabId; label: string; icon: typeof TrendingUp }[] = [
@@ -12,7 +13,7 @@ const tabs: { id: TabId; label: string; icon: typeof TrendingUp }[] = [
   { id: 'drivers', label: '要因分析', icon: Search },
 ];
 
-export function TopBar({ activeTab, onTabChange }: TopBarProps) {
+export function TopBar({ activeTab, onTabChange, selectedMonth }: TopBarProps) {
   return (
     <header className={styles.topBar}>
       <div className={styles.logoArea}>
@@ -37,7 +38,7 @@ export function TopBar({ activeTab, onTabChange }: TopBarProps) {
       </nav>
       <div className={styles.date}>
         <Calendar size={13} />
-        2025年11月度
+        2025年{selectedMonth}月度
       </div>
     </header>
   );

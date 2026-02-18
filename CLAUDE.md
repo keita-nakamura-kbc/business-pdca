@@ -22,6 +22,12 @@ powershell.exe -Command "Set-Location 'C:\claudeproject\BIpdca\kirin-bi-dashboar
 
 **Project config**: ESM (`"type": "module"` in package.json). HTML uses `lang="ja"` and `<meta name="viewport" content="width=1920">`.
 
+## Deployment
+
+- **GitHub**: `keita-nakamura-kbc/business-pdca`
+- **Render Static Site**: Root Directory = `kirin-bi-dashboard`, Build Command = `npm install && npm run build`, Publish Directory = `dist`
+- `git push origin main` triggers automatic deploy
+
 ## Tech Stack
 
 - **React 19.2** + **TypeScript ~5.9.3** + **Vite 7.3.1**
@@ -38,7 +44,7 @@ powershell.exe -Command "Set-Location 'C:\claudeproject\BIpdca\kirin-bi-dashboar
 ```
 App.tsx (1920×1080 fixed, flex column)
 ├── TopBar (44px) — red K logo, 2 tab buttons (業績トレンド / 要因分析), calendar
-├── SlicerBar (28px) — 単月/累月 toggle
+├── SlicerBar (28px) — 単月/累月 toggle + 対象月セレクタ (1〜11月)
 ├── <main> (flex:1, overflow:hidden)
 │   ├── TrendsTab (業績トレンド)
 │   └── DriversTab (要因分析)
@@ -53,8 +59,8 @@ Total header height: 76px → content area: 1004px.
 | Row | Height | Col 1 | Col 2 | Col 3 |
 |-----|--------|-------|-------|-------|
 | Top | 100px | 5 KpiCards + キーメッセージ (spans full width) |||
-| Upper | flex:1 | ComboChart | WaterfallChart | RegionalPlSummary |
-| Lower | flex:1 | MarketPanel | BuTrendChart | BrandTrendChart |
+| Upper | flex:1 | ComboChart | WaterfallChart | BuTrendChart |
+| Lower | flex:1 | MarketPanel | RegionalPlSummary | BrandTrendChart |
 
 ### DriversTab Layout — 単社 analysis (2×2 grid)
 
@@ -63,11 +69,11 @@ Left panels use `chartPanelThird` (flex: 1) for wide heatmaps, right panels use 
 | Row | Left (wide) | Right (narrow) |
 |-----|------------|----------------|
 | 上段 BU | HeatmapTable (BU×5指標+セル内スパークライン) | SalesBreakdownPanel (容器別+チャネル別) |
-| 下段 Brand | BrandHeatmapTable (ブランド×5指標+セル内スパークライン) | BrandSalesTable (6行×6列) |
+| 下段 Brand | BrandHeatmapTable (ブランド×5指標+セル内スパークライン) | BrandSalesTable (容器>ブランド>詳細 3階層) |
 
 ### State Management (3 hooks)
 
-- **useSlicer** → `{ period: 'monthly' | 'cumulative' }` — toggles all data sources
+- **useSlicer** → `{ period: 'monthly' | 'cumulative', selectedMonth: number }` — toggles data sources + selects target month (1-12, default 11)
 - **useDrilldown** → open/close 480px panel with type-based routing (`DrilldownType`)
 - **useConditionalFormat** → `ratio → 'achieved' | 'warning' | 'missed' | 'none'`
 
@@ -86,7 +92,8 @@ All static data in `src/data/`, barrel-exported via `index.ts`. Most datasets ha
 | `trendData.ts` | annualTrendData (12-month combo chart) |
 | `costData.ts` | priceVarianceDataMonthly, priceVarianceDataCumulative |
 | `buTrendData.ts` | buMonthlySales, buCumulativeSales (3BU月別売上推移 億円) |
-| `appendixData.ts` | regionalPlData, salesByBrand/Container/Channel (monthly+cumulative), containerChannelData, rawMaterialData, rawMaterialCostTotal, channelPlData, channelSummary, marketTrend, marketByCompany (monthly+cumulative). Defines `SalesDetailRow`, `RegionalPlRow`, `MarketShareData`, `MarketTrendPoint` interfaces |
+| `appendixData.ts` | regionalPlData, salesByBrand/Container/Channel (monthly+cumulative), containerChannelData, rawMaterialData, rawMaterialCostTotal, channelPlData, channelSummary, marketMultiYearMonthly/Cumulative (3-year market data). Defines `SalesDetailRow`, `RegionalPlRow`, `MarketShareData`, `MarketMultiYearPoint` interfaces. Legacy `MarketTrendPoint`/`marketTrendMonthly`/`marketTrendCumulative` still exported but unused by components |
+| `containerBrandData.ts` | containerBrandData, containerBrandDataMonthly (ContainerBrandGroup[] — 容器>ブランド>詳細 3階層) |
 | `brandIcons.ts` | Shield(purple)=プラズマ/iMUSE, Coffee(red)=午後の紅茶, Leaf(green)=生茶 |
 
 ### File Organization
@@ -128,7 +135,7 @@ Data is generated via `generateRatioTrend()` in DriversTab.tsx from final ratio 
 
 ### Shared Heatmap Utilities (`heatmapUtils.tsx`)
 
-Common functions extracted in Phase 13, used by 5 components:
+Common functions used by 5 components:
 - `getCellColor(ratio)` — HeatmapTable, BrandHeatmapTable
 - `getCellBg(ratio)` — RegionalPlSummary, SalesBreakdownPanel, BrandSalesTable
 - `barGradient(actual, colMax)` — HeatmapTable, BrandHeatmapTable
@@ -162,7 +169,7 @@ Recharts 3.x types `Tooltip formatter` value as `number | undefined`. Custom for
 formatter={(value: any, name: any) => [`${Number(value).toFixed(1)} 億円`, name]}
 ```
 
-### Mini-Chart Grid Pattern (MarketPanel, BuTrendChart, BrandTrendChart)
+### Mini-Chart Grid Pattern (BuTrendChart, BrandTrendChart)
 Side-by-side `ResponsiveContainer + LineChart` in a flex row:
 - `.chartGrid` (flex row, gap: 4px, flex: 1, min-height: 0)
 - `.miniChart` (flex: 1, flex-column) — background tinted by achievement
@@ -170,6 +177,14 @@ Side-by-side `ResponsiveContainer + LineChart` in a flex row:
 - X-axis shows only quarter markers (1月/4月/7月/10月)
 - Each mini-chart: colorDot + title → badge(s) → chart area (flex: 1)
 - BrandTrendChart and BuTrendChart have no drilldown (info-only / hover tooltip)
+
+### MarketPanel — Unified 3-Year Chart
+Single `ResponsiveContainer + LineChart` with 5 company `<Line>` series (KBC/CCJC/SU/A/I):
+- 3 fiscal years (FY2023–2025, ~35 data points): X-axis labels `23/01` → `25/11`
+- `ReferenceLine` at year boundaries (`24/01`, `25/01`) with dashed stroke
+- Company legend row + YoY badge row (StatusIcon + achievement-colored ratio) above chart
+- Cumulative mode: year-based reset (sawtooth pattern via `buildMultiYearCumulative`)
+- Data source: `marketMultiYearMonthly` / `marketMultiYearCumulative` (`MarketMultiYearPoint` from `appendixData.ts`)
 
 ### BU Hover Tooltip Pattern (HeatmapTable, BuTrendChart)
 Instead of opening a drilldown panel, BU entities show CSS hover tooltips with `BuTooltipContent`. The tooltip displays a compact summary: 売上高/限界利益/直接利益/変動費高比/直接利益率 with StatusIcon achievement colors. BuTrendChart receives a `buDetails` prop (`BuData[]`) for tooltip data.
@@ -191,6 +206,12 @@ Only brands with deep data trigger brand drilldowns: 生茶, 午後の紅茶, iM
 ### BrandDrilldown (Simplified)
 Contains only BrandMarketCharts (販売店率/回転数/平均販売単価) + 出荷実績内訳. No overview table, no fallback path for brands without deep data.
 
+### CostDrilldown (KPI-Based Routing)
+Content splits by source KPI (`data.kpi.label`):
+- **変動費高比** → 変動費影響 + 売上高単価差異 tables
+- **原材料コスト** → 原材料動向 table only
+No accordion/expand-collapse — all sections always visible.
+
 ### Data Bar Pattern (RegionalPlSummary)
 Value cells combine two background layers via inline style:
 - `backgroundColor`: heatmap color from `getCellBg(ratio)` (achievement 5-level)
@@ -199,15 +220,16 @@ Value cells combine two background layers via inline style:
 ### Key Types (`src/types/index.ts`)
 - `TabId = 'trends' | 'drivers'`
 - `DrilldownType = 'kpi' | 'brand' | 'waterfall' | 'channel' | 'cost' | null`
-- `SlicerState = { period: 'monthly' | 'cumulative' }`
+- `SlicerState = { period: 'monthly' | 'cumulative', selectedMonth: number }`
 - `KpiData`, `TableRow`, `WaterfallSegment`, `BuData`, `BrandData`, `TrendDataPoint`, `CostRatioRow`
 
 ### Types in `src/data/` (not in types/index.ts)
 - `BrandMetricRow` (brandMetricData.ts) — brand × 5 metrics (volume/sales/marginalProfit/directProfit)
 - `RegionalPlRow` (appendixData.ts) — 13-row P&L with hs/food/consolidated values + planRatio/yoyRatio. Cost items have pre-inverted ratios.
 - `SalesDetailRow` (appendixData.ts) — brand sales detail with actual/plan/ratio/yoy + salesAmount/salesPlanRatio
-- `MarketShareData`, `MarketTrendPoint` (appendixData.ts) — market data interfaces
+- `MarketMultiYearPoint` (appendixData.ts) — 3-year market data (label/month/year + 5 company values in 万箱). `MarketShareData`, `MarketTrendPoint` also exported (legacy, unused by components)
 - `BuMonthlyPoint` (buTrendData.ts) — BU monthly sales with target/prev year per BU
+- `ContainerBrandGroup` / `ContainerBrandEntry` / `BrandDetail` (containerBrandData.ts) — 容器>ブランド>詳細 3階層データ
 
 ## Critical Constraints
 
@@ -223,6 +245,8 @@ Value cells combine two background layers via inline style:
 ## Non-Source Files
 
 Dead code has been cleaned up — no known unused component files remain. **Reference artifacts** (not actively developed): `files/` (HTML mockups, JSON structure), `doc/` (source PDFs), `*.py` (root — PDF extraction scripts).
+
+**`.gitignore` notes**: `config.py` (Azure API keys) and `doc/*.pdf` (confidential) are excluded — do not commit these files.
 
 ## Development Workflows
 

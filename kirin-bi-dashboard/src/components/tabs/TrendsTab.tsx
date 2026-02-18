@@ -62,11 +62,11 @@ export function TrendsTab({ slicer, onDrilldown }: TrendsTabProps) {
         </div>
       </div>
 
-      {/* Upper charts: ComboChart + Waterfall + RegionalPlSummary (1/3 each) */}
+      {/* Upper charts: ComboChart + Waterfall + BuTrend (1/3 each) */}
       <div className={styles.chartRowUpper}>
         <div className={styles.chartPanelThird}>
           <SectionHeader icon={LineChart} title="年間事業利益推移" subtitle="【連結】" pageRef="12" />
-          <ComboChart data={annualTrendData} height={390} />
+          <ComboChart data={annualTrendData} height={390} selectedMonth={slicer.selectedMonth} />
         </div>
         <div className={styles.chartPanelThird}>
           <SectionHeader
@@ -85,26 +85,26 @@ export function TrendsTab({ slicer, onDrilldown }: TrendsTabProps) {
           />
         </div>
         <div className={styles.chartPanelThird}>
-          <SectionHeader icon={Table2} title="連結領域別損益" subtitle={isMonthly ? '【単月 億円】' : '【累月 億円】'} pageRef="36" />
-          <RegionalPlSummary slicer={slicer} />
+          <SectionHeader icon={TrendingUp} title="BU別売上推移" subtitle={isMonthly ? '【単社】月別' : '【単社】累月'} pageRef="9" />
+          <div style={{ flex: 1, minHeight: 0 }}>
+            <BuTrendChart data={buTrend} buDetails={buDetail} selectedMonth={slicer.selectedMonth} />
+          </div>
         </div>
       </div>
 
-      {/* Lower charts: MarketPanel + BuTrend + BrandTrend (1/3 each) */}
+      {/* Lower charts: MarketPanel + RegionalPlSummary + BrandTrend (1/3 each) */}
       <div className={styles.chartRowLower}>
         <div className={styles.chartPanelThird}>
-          <MarketPanel slicer={slicer} />
+          <MarketPanel slicer={slicer} selectedMonth={slicer.selectedMonth} />
         </div>
         <div className={styles.chartPanelThird}>
-          <SectionHeader icon={TrendingUp} title="BU別売上推移" subtitle={isMonthly ? '【単社】月別' : '【単社】累月'} pageRef="9" />
-          <div style={{ flex: 1, minHeight: 0 }}>
-            <BuTrendChart data={buTrend} buDetails={buDetail} />
-          </div>
+          <SectionHeader icon={Table2} title="連結領域別損益" subtitle={isMonthly ? '【単月 億円】' : '【累月 億円】'} pageRef="36" />
+          <RegionalPlSummary slicer={slicer} />
         </div>
         <div className={styles.chartPanelThird}>
           <SectionHeader icon={TrendingUp} title="ブランド別売上推移" subtitle={isMonthly ? '【単社】月別' : '【単社】累月'} pageRef="14,17,19" />
           <div style={{ flex: 1, minHeight: 0 }}>
-            <BrandTrendChart data={brandTrend} />
+            <BrandTrendChart data={brandTrend} selectedMonth={slicer.selectedMonth} />
           </div>
         </div>
       </div>

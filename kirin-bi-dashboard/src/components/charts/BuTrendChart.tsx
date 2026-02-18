@@ -5,6 +5,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';
 import type { BuData } from '../../types';
@@ -17,6 +18,7 @@ interface BuTrendChartProps {
   data: BuMonthlyPoint[];
   height?: number | `${number}%`;
   buDetails?: BuData[];
+  selectedMonth?: number;
 }
 
 const BUS = [
@@ -123,7 +125,7 @@ function BuTooltipContent({ bu }: { bu: BuData }) {
   );
 }
 
-export function BuTrendChart({ data, buDetails }: BuTrendChartProps) {
+export function BuTrendChart({ data, buDetails, selectedMonth }: BuTrendChartProps) {
   return (
     <div className={styles.panel}>
       <div className={styles.legend}>
@@ -224,6 +226,14 @@ export function BuTrendChart({ data, buDetails }: BuTrendChartProps) {
                       strokeOpacity={0.5}
                       dot={false}
                     />
+                    {selectedMonth != null && (
+                      <ReferenceLine
+                        x={`${selectedMonth}月`}
+                        stroke="var(--color-accent)"
+                        strokeWidth={2}
+                        strokeOpacity={0.5}
+                      />
+                    )}
                   </LineChart>
                 </ResponsiveContainer>
               </div>

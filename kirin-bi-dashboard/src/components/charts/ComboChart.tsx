@@ -18,6 +18,7 @@ import styles from './ComboChart.module.css';
 interface ComboChartProps {
   data: TrendDataPoint[];
   height?: number;
+  selectedMonth?: number;
 }
 
 function getBarColor(actual: number, plan: number): string {
@@ -28,7 +29,7 @@ function getBarColor(actual: number, plan: number): string {
   return 'var(--color-missed)';
 }
 
-export function ComboChart({ data, height = 260 }: ComboChartProps) {
+export function ComboChart({ data, height = 260, selectedMonth }: ComboChartProps) {
   return (
     <div className={styles.container}>
       <ResponsiveContainer width="100%" height={height}>
@@ -68,6 +69,15 @@ export function ComboChart({ data, height = 260 }: ComboChartProps) {
             strokeDasharray="8 4"
             label={{ value: '目標200億', position: 'right', fontSize: 10, fill: 'var(--color-warning)' }}
           />
+          {selectedMonth != null && (
+            <ReferenceLine
+              x={`${selectedMonth}月`}
+              yAxisId="left"
+              stroke="var(--color-accent)"
+              strokeWidth={2}
+              strokeOpacity={0.5}
+            />
+          )}
           <Bar
             yAxisId="left"
             dataKey="monthlyActual"

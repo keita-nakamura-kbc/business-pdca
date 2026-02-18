@@ -15,7 +15,7 @@ import { useDrilldown } from './hooks/useDrilldown';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('trends');
-  const { slicer, togglePeriod } = useSlicer();
+  const { slicer, togglePeriod, setSelectedMonth } = useSlicer();
   const { drilldown, open, close } = useDrilldown();
 
   const handleDrilldown = (type: DrilldownType, title: string, data: Record<string, unknown>) => {
@@ -41,8 +41,8 @@ function App() {
 
   return (
     <div style={{ width: 1920, height: 1080, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <TopBar activeTab={activeTab} onTabChange={setActiveTab} />
-      <SlicerBar slicer={slicer} onTogglePeriod={togglePeriod} />
+      <TopBar activeTab={activeTab} onTabChange={setActiveTab} selectedMonth={slicer.selectedMonth} />
+      <SlicerBar slicer={slicer} onTogglePeriod={togglePeriod} onMonthChange={setSelectedMonth} />
 
       <main style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
         {activeTab === 'trends' && (

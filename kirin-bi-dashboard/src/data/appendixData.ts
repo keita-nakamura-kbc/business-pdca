@@ -376,15 +376,19 @@ export const channelSummary: ChannelSummaryItem[] = channelPlData
   .filter(r => r.isTotal || (!r.indent && !r.isGrandTotal))
   .map(r => ({ name: r.channel, sales: r.sales, directProfitRate: r.directProfitRate }));
 
-// P.30 市場出荷推移 — 当年/前年比較（会社別）
-export interface MarketTrendWithPrevPoint {
-  month: string;
-  current: number;   // 当年 万箱
-  prevYear: number;  // 前年 万箱
+// P.30 市場出荷推移 — 3ヵ年（会社別）
+export interface MarketMultiYearPoint {
+  label: string;   // "23/01", "24/04" etc.
+  month: number;   // 1-12 (累月リセット用)
+  year: number;    // 2023, 2024, 2025
+  kbc: number;     // 万箱
+  ccjc: number;
+  su: number;
+  asahi: number;
+  ito: number;
 }
 
-// 前年データ: PDF P.30 の前年比から逆算
-// KBC: 累月95%, CCJC: 累月99%, SU: 累月96%, A: 単月91%, I: 累月100%
+// FY2025 (当年 1-11月) & FY2024 (前年 1-11月 + 12月推定)
 const companyMonthlyRaw: Record<string, { current: number[]; prevYear: number[] }> = {
   kbc:   { current: [1100,1050,1200,1500,1700,1800,2100,2050,1800,1630,1370], prevYear: [1180,1090,1270,1580,1770,1910,2200,2170,1870,1740,1440] },
   ccjc:  { current: [2800,2700,3100,3800,4200,4500,5200,5100,4400,3620,3370], prevYear: [2830,2720,3130,3840,4240,4550,5260,5160,4440,3660,3400] },
@@ -393,25 +397,75 @@ const companyMonthlyRaw: Record<string, { current: number[]; prevYear: number[] 
   ito:   { current: [1300,1250,1400,1800,2000,2100,2400,2350,2050,1740,1540], prevYear: [1290,1260,1410,1790,2010,2090,2410,2340,2060,1730,1540] },
 };
 
-const MARKET_MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月'];
+const COMPANIES = ['kbc', 'ccjc', 'su', 'asahi', 'ito'] as const;
 
-function buildCompanyMonthly(raw: { current: number[]; prevYear: number[] }): MarketTrendWithPrevPoint[] {
-  return MARKET_MONTHS.map((m, i) => ({ month: m, current: raw.current[i], prevYear: raw.prevYear[i] }));
+// FY2024 12月推定: 11月から-5%程度
+const fy24Dec: Record<string, number> = {
+  kbc: 1370, ccjc: 3200, su: 3010, asahi: 1420, ito: 1460,
+};
+
+// FY2023: FY2024 prevYear から逆算 (前年比 97-103% のバリエーション)
+const fy23Factors: Record<string, number[]> = {
+  kbc:   [0.98, 0.97, 0.99, 1.01, 0.98, 0.97, 1.00, 0.99, 0.98, 0.97, 0.99, 0.98],
+  ccjc:  [1.01, 1.00, 0.99, 1.02, 1.01, 1.00, 0.99, 1.01, 1.00, 0.99, 1.01, 1.00],
+  su:    [0.99, 1.00, 0.98, 0.97, 0.99, 1.00, 0.98, 0.99, 1.00, 0.98, 0.99, 0.98],
+  asahi: [1.02, 1.01, 1.00, 1.03, 1.02, 1.01, 1.00, 1.02, 1.01, 1.00, 1.02, 1.01],
+  ito:   [1.00, 0.99, 1.01, 1.00, 0.99, 1.01, 1.00, 0.99, 1.01, 1.00, 0.99, 1.00],
+};
+
+function buildMultiYearMonthly(): MarketMultiYearPoint[] {
+  const points: MarketMultiYearPoint[] = [];
+
+  // FY2023 (12ヶ月): FY2024 prevYear ÷ factor
+  for (let i = 0; i < 12; i++) {
+    const m = i + 1;
+    const label = `23/${String(m).padStart(2, '0')}`;
+    const pt: MarketMultiYearPoint = { label, month: m, year: 2023, kbc: 0, ccjc: 0, su: 0, asahi: 0, ito: 0 };
+    for (const co of COMPANIES) {
+      const fy24val = i < 11 ? companyMonthlyRaw[co].prevYear[i] : fy24Dec[co];
+      pt[co] = Math.round(fy24val / fy23Factors[co][i]);
+    }
+    points.push(pt);
+  }
+
+  // FY2024 (12ヶ月): prevYear[0..10] + Dec推定
+  for (let i = 0; i < 12; i++) {
+    const m = i + 1;
+    const label = `24/${String(m).padStart(2, '0')}`;
+    const pt: MarketMultiYearPoint = { label, month: m, year: 2024, kbc: 0, ccjc: 0, su: 0, asahi: 0, ito: 0 };
+    for (const co of COMPANIES) {
+      pt[co] = i < 11 ? companyMonthlyRaw[co].prevYear[i] : fy24Dec[co];
+    }
+    points.push(pt);
+  }
+
+  // FY2025 (11ヶ月): current[0..10]
+  for (let i = 0; i < 11; i++) {
+    const m = i + 1;
+    const label = `25/${String(m).padStart(2, '0')}`;
+    const pt: MarketMultiYearPoint = { label, month: m, year: 2025, kbc: 0, ccjc: 0, su: 0, asahi: 0, ito: 0 };
+    for (const co of COMPANIES) {
+      pt[co] = companyMonthlyRaw[co].current[i];
+    }
+    points.push(pt);
+  }
+
+  return points;
 }
 
-function buildCompanyCumulative(monthly: MarketTrendWithPrevPoint[]): MarketTrendWithPrevPoint[] {
-  let cumC = 0, cumP = 0;
+function buildMultiYearCumulative(monthly: MarketMultiYearPoint[]): MarketMultiYearPoint[] {
+  const cum: Record<string, number> = { kbc: 0, ccjc: 0, su: 0, asahi: 0, ito: 0 };
+  let prevYear = 0;
   return monthly.map(p => {
-    cumC += p.current;
-    cumP += p.prevYear;
-    return { month: p.month, current: cumC, prevYear: cumP };
+    // 年が変わったらリセット
+    if (p.year !== prevYear) {
+      for (const co of COMPANIES) cum[co] = 0;
+      prevYear = p.year;
+    }
+    for (const co of COMPANIES) cum[co] += p[co];
+    return { ...p, kbc: cum.kbc, ccjc: cum.ccjc, su: cum.su, asahi: cum.asahi, ito: cum.ito };
   });
 }
 
-export const marketByCompanyMonthly: Record<string, MarketTrendWithPrevPoint[]> = Object.fromEntries(
-  Object.entries(companyMonthlyRaw).map(([k, v]) => [k, buildCompanyMonthly(v)])
-);
-
-export const marketByCompanyCumulative: Record<string, MarketTrendWithPrevPoint[]> = Object.fromEntries(
-  Object.entries(companyMonthlyRaw).map(([k, v]) => [k, buildCompanyCumulative(buildCompanyMonthly(v))])
-);
+export const marketMultiYearMonthly = buildMultiYearMonthly();
+export const marketMultiYearCumulative = buildMultiYearCumulative(buildMultiYearMonthly());
