@@ -1,4 +1,4 @@
-import { TrendingUp, Search, Calendar } from 'lucide-react';
+import { TrendingUp, Search, Calendar, Play } from 'lucide-react';
 import type { TabId } from '../../types';
 import styles from './TopBar.module.css';
 
@@ -6,6 +6,8 @@ interface TopBarProps {
   activeTab: TabId;
   onTabChange: (tab: TabId) => void;
   selectedMonth: number;
+  onStartPresentation?: () => void;
+  isPresentationActive?: boolean;
 }
 
 const tabs: { id: TabId; label: string; icon: typeof TrendingUp }[] = [
@@ -13,7 +15,7 @@ const tabs: { id: TabId; label: string; icon: typeof TrendingUp }[] = [
   { id: 'drivers', label: '要因分析', icon: Search },
 ];
 
-export function TopBar({ activeTab, onTabChange, selectedMonth }: TopBarProps) {
+export function TopBar({ activeTab, onTabChange, selectedMonth, onStartPresentation, isPresentationActive }: TopBarProps) {
   return (
     <header className={styles.topBar}>
       <div className={styles.logoArea}>
@@ -36,9 +38,17 @@ export function TopBar({ activeTab, onTabChange, selectedMonth }: TopBarProps) {
           </button>
         ))}
       </nav>
-      <div className={styles.date}>
-        <Calendar size={13} />
-        2025年{selectedMonth}月度
+      <div className={styles.rightArea}>
+        {!isPresentationActive && onStartPresentation && (
+          <button className={styles.presentBtn} onClick={onStartPresentation}>
+            <Play size={13} />
+            プレゼン
+          </button>
+        )}
+        <div className={styles.date}>
+          <Calendar size={13} />
+          2025年{selectedMonth}月度
+        </div>
       </div>
     </header>
   );

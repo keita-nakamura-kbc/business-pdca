@@ -132,3 +132,15 @@ html, body, #root {
 .cf-missed {
   background-color: var(--color-missed-bg) !important;
 }
+
+/* Presentation mode highlight */
+.presentation-highlight {
+  animation: presentation-pulse 1.5s ease-in-out 2;
+  box-shadow: 0 0 0 2px var(--color-accent), 0 0 12px rgba(220, 0, 0, 0.25);
+  border-radius: var(--radius-md);
+}
+
+@keyframes presentation-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px var(--color-accent), 0 0 12px rgba(220, 0, 0, 0.25); }
+  50% { box-shadow: 0 0 0 3px var(--color-accent), 0 0 20px rgba(220, 0, 0, 0.4); }
+}

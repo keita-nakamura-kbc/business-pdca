@@ -13,5 +13,8 @@ export function useSlicer() {
   const setSelectedMonth = (month: number) =>
     setSlicer(s => ({ ...s, selectedMonth: month }));
 
-  return { slicer, togglePeriod, setSelectedMonth };
+  const setPeriod = (period: 'monthly' | 'cumulative') =>
+    setSlicer(s => ({ ...s, period }));
+
+  return { slicer, togglePeriod, setSelectedMonth, setPeriod };
 }

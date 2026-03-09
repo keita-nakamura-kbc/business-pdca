@@ -43,11 +43,12 @@ powershell.exe -Command "Set-Location 'C:\claudeproject\BIpdca\kirin-bi-dashboar
 
 ```
 App.tsx (1920×1080 fixed, flex column)
-├── TopBar (44px) — red K logo, 2 tab buttons (業績トレンド / 要因分析), calendar
+├── TopBar (44px) — red K logo, 2 tab buttons, calendar, プレゼン button
 ├── SlicerBar (28px) — 単月/累月 toggle + 対象月セレクタ (1〜11月)
 ├── <main> (flex:1, overflow:hidden)
 │   ├── TrendsTab (業績トレンド)
 │   └── DriversTab (要因分析)
+├── StepBar (36px, conditional) — presentation step nav (dots + label + exit)
 └── DrilldownPanel (480px slide-in overlay, right side)
     └── 5 types: Kpi / Brand / Waterfall / Channel / Cost
 ```
@@ -71,11 +72,12 @@ Left panels use `chartPanelThird` (flex: 1) for wide heatmaps, right panels use 
 | 上段 BU | HeatmapTable (BU×5指標+セル内スパークライン) | SalesBreakdownPanel (容器別+チャネル別) |
 | 下段 Brand | BrandHeatmapTable (ブランド×5指標+セル内スパークライン) | BrandSalesTable (容器>ブランド>詳細 3階層) |
 
-### State Management (3 hooks)
+### State Management (4 hooks)
 
-- **useSlicer** → `{ period: 'monthly' | 'cumulative', selectedMonth: number }` — toggles data sources + selects target month (1-12, default 11)
+- **useSlicer** → `{ period: 'monthly' | 'cumulative', selectedMonth: number }` — `togglePeriod()`, `setPeriod(period)`, `setSelectedMonth(month)`. Selects data sources + target month (1-12, default 11)
 - **useDrilldown** → open/close 480px panel with type-based routing (`DrilldownType`)
 - **useConditionalFormat** → `ratio → 'achieved' | 'warning' | 'missed' | 'none'`
+- **usePresentation** → 8-step fixed flow: `isActive`, `currentStep`, `start/exit/goNext/goPrev/goToStep`. Steps auto-control tab + slicer period. Defined in `PRESENTATION_STEPS` array.
 
 ### Data Layer
 
@@ -86,7 +88,7 @@ All static data in `src/data/`, barrel-exported via `index.ts`. Most datasets ha
 | `kpiData.ts` | monthlyKpis, cumulativeKpis (5 KPI cards each) |
 | `plData.ts` | consolidatedPlMonthlyVsPlan, consolidatedPlCumulativeVsPlan, waterfallMonthly, waterfallCumulative, plItemTrends |
 | `buData.ts` | buHeatmapData, buHeatmapDataMonthly, variableCostImpactMonthly/Cumulative (+Total variants) |
-| `brandData.ts` | brandCards, brandPerformanceDetails, shipmentDetails, shipmentDetailsMonthly |
+| `brandData.ts` | brandCards, brandPerformanceDetails, shipmentDetails, shipmentDetailsMonthly, brandMarketMetrics |
 | `brandTrendData.ts` | brandMonthlySales, brandCumulativeSales |
 | `brandMetricData.ts` | brandMetricData, brandMetricDataMonthly (BrandMetricRow[] — 5指標) |
 | `trendData.ts` | annualTrendData (12-month combo chart) |
@@ -101,15 +103,17 @@ All static data in `src/data/`, barrel-exported via `index.ts`. Most datasets ha
 ```
 kirin-bi-dashboard/src/
 ├── components/
-│   ├── layout/      TopBar, SlicerBar, DrilldownPanel
+│   ├── layout/      TopBar, SlicerBar, StepBar, DrilldownPanel
 │   ├── common/      KpiCard, StatusIcon, DeltaValue, SectionHeader, Sparkline, DataTable, CustomTooltip
 │   ├── charts/      ComboChart, WaterfallChart, HeatmapTable, BrandHeatmapTable,
 │   │                BuTrendChart, BrandTrendChart, SalesBreakdownPanel, BrandSalesTable,
 │   │                MarketPanel, RegionalPlSummary, heatmapUtils
 │   ├── drilldown/   KpiDrilldown, BrandDrilldown, PlRowDrilldown,
-│   │                ChannelDrilldown, CostDrilldown, BrandMarketCharts
+│   │                ChannelDrilldown, CostDrilldown, BrandMarketCharts,
+│   │                PlTrendChart, PlRowView, WaterfallView,
+│   │                DrilldownContent.module.css (shared drilldown styles)
 │   └── tabs/        TrendsTab, DriversTab
-├── hooks/           useSlicer, useDrilldown, useConditionalFormat
+├── hooks/           useSlicer, useDrilldown, useConditionalFormat, usePresentation
 ├── data/            Static data files (see table above)
 ├── types/           index.ts (all TypeScript types)
 └── styles/          global.css (CSS variables, reset, utilities)
@@ -200,6 +204,14 @@ Instead of opening a drilldown panel, BU entities show CSS hover tooltips with `
 
 Other chart interactions are info-only: BuTrendChart/HeatmapTable use CSS hover tooltips, RegionalPlSummary/BrandSalesTable use expand/collapse only, BrandTrendChart has no interaction.
 
+### Presentation Mode
+- TopBar "プレゼン" button starts mode; StepBar appears at bottom (36px) with dot navigation + step label + exit button
+- 8 fixed steps defined in `PRESENTATION_STEPS` array, each with `tab`, `period`, `label`, and optional `focusArea`
+- `data-area` attributes on chart panels enable CSS highlight targeting (`[data-area="combo"]`, etc.)
+- `.presentation-highlight` CSS class applies pulse animation (defined in `global.css`)
+- Step changes auto-set tab + slicer period + close drilldown via `useEffect` in App.tsx
+- Keyboard: ←→ navigate steps, Esc exits (yields to drilldown close first)
+
 ### DRILLABLE_BRANDS Filtering
 Only brands with deep data trigger brand drilldowns: 生茶, 午後の紅茶, iMUSE, プラズマ乳酸菌. Other brands (ファイア, 小岩井, その他) are non-interactive (no click handler, no cursor pointer). Filtering is applied in DriversTab.tsx (BrandHeatmapTable only — BrandSalesTable has no drilldown).
 
@@ -221,6 +233,7 @@ Value cells combine two background layers via inline style:
 - `TabId = 'trends' | 'drivers'`
 - `DrilldownType = 'kpi' | 'brand' | 'waterfall' | 'channel' | 'cost' | null`
 - `SlicerState = { period: 'monthly' | 'cumulative', selectedMonth: number }`
+- `PresentationStep = { tab: TabId, period: 'monthly' | 'cumulative', label: string, focusArea?: string }`
 - `KpiData`, `TableRow`, `WaterfallSegment`, `BuData`, `BrandData`, `TrendDataPoint`, `CostRatioRow`
 
 ### Types in `src/data/` (not in types/index.ts)

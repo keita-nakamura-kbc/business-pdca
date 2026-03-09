@@ -39,7 +39,7 @@ export function TrendsTab({ slicer, onDrilldown }: TrendsTabProps) {
   return (
     <div className={styles.container}>
       {/* Top row: KPI cards + Commentary */}
-      <div className={styles.topRow}>
+      <div className={styles.topRow} data-area="kpi-row">
         {kpis.map(kpi => (
           <KpiCard
             key={kpi.label}
@@ -68,7 +68,7 @@ export function TrendsTab({ slicer, onDrilldown }: TrendsTabProps) {
           <SectionHeader icon={LineChart} title="年間事業利益推移" subtitle="【連結】" pageRef="12" />
           <ComboChart data={annualTrendData} height={390} selectedMonth={slicer.selectedMonth} />
         </div>
-        <div className={styles.chartPanelThird}>
+        <div className={styles.chartPanelThird} data-area="waterfall">
           <SectionHeader
             icon={GitCompare}
             title="事業利益増減分析"

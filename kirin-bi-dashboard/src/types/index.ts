@@ -85,6 +85,14 @@ export type ConditionalFormatLevel = 'achieved' | 'warning' | 'missed' | 'none';
 // タブ (2タブ構成)
 export type TabId = 'trends' | 'drivers';
 
+// プレゼンテーションステップ
+export interface PresentationStep {
+  tab: TabId;
+  period: 'monthly' | 'cumulative';
+  label: string;
+  focusArea?: string; // data-area attribute to highlight
+}
+
 // ブランドトレンド
 export interface BrandTrendPoint {
   period: string;

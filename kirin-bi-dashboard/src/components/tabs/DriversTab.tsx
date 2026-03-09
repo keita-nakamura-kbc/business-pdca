@@ -73,7 +73,7 @@ export function DriversTab({ slicer, onDrilldown }: DriversTabProps) {
     <div className={styles.container}>
       {/* Top Row: BU/事業 */}
       <div className={styles.rowBu}>
-        <div className={styles.chartPanelThird}>
+        <div className={styles.chartPanelThird} data-area="bu-heatmap">
           <SectionHeader icon={Grid3X3} title="BU×指標 パフォーマンス" subtitle={isMonthly ? '【単社】単月' : '【単社】累月'} pageRef="9" />
           <HeatmapTable
             data={heatmap}
@@ -87,7 +87,7 @@ export function DriversTab({ slicer, onDrilldown }: DriversTabProps) {
 
       {/* Bottom Row: Brand/ブランド */}
       <div className={styles.rowBrand}>
-        <div className={styles.chartPanelThird}>
+        <div className={styles.chartPanelThird} data-area="brand-heatmap">
           <SectionHeader icon={Grid3X3} title="ブランド×指標 パフォーマンス" subtitle={isMonthly ? '【単社】単月' : '【単社】累月'} pageRef="39-42" interactive />
           <BrandHeatmapTable
             data={brandMetric}
