@@ -44,10 +44,19 @@ export { brandMetricData, brandMetricDataMonthly } from './brandMetricData';
 // 容器別×ブランド別
 export { containerBrandData, containerBrandDataMonthly } from './containerBrandData';
 
-// Appendix
+// 連結領域別PL
+export { regionalPlData, regionalPlDataMonthly } from './regionalPlData';
+
+// 市場データ
 export {
-  regionalPlData,
-  regionalPlDataMonthly,
+  marketTrendMonthly,
+  marketTrendCumulative,
+  marketMultiYearMonthly,
+  marketMultiYearCumulative,
+} from './marketData';
+
+// 販売実績
+export {
   salesByBrand,
   salesByBrandMonthly,
   salesByContainer,
@@ -56,15 +65,19 @@ export {
   salesByChannelMonthly,
   containerChannelData,
   containerChannelDataMonthly,
-  rawMaterialData,
-  rawMaterialCostTotalCumulative,
-  rawMaterialCostTotalMonthly,
+} from './salesDetailData';
+
+// チャネル別PL
+export {
   channelPlData,
   channelPlDataMonthly,
   channelSummary,
   channelSummaryMonthly,
-  marketTrendMonthly,
-  marketTrendCumulative,
-  marketMultiYearMonthly,
-  marketMultiYearCumulative,
-} from './appendixData';
+} from './channelData';
+
+// 原材料
+export {
+  rawMaterialData,
+  rawMaterialCostTotalCumulative,
+  rawMaterialCostTotalMonthly,
+} from './rawMaterialData';

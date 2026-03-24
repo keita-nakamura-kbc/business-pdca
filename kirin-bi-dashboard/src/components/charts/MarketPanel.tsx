@@ -17,7 +17,7 @@ import {
   marketMultiYearMonthly,
   marketMultiYearCumulative,
 } from '../../data';
-import type { MarketMultiYearPoint } from '../../data/appendixData';
+import type { MarketMultiYearPoint } from '../../data/marketData';
 import styles from './MarketPanel.module.css';
 
 interface MarketPanelProps {

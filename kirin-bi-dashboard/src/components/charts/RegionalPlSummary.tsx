@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import type { SlicerState } from '../../types';
-import type { RegionalPlRow } from '../../data/appendixData';
+import type { RegionalPlRow } from '../../data/regionalPlData';
 import { StatusIcon } from '../common/StatusIcon';
 import { Sparkline } from '../common/Sparkline';
 import { useConditionalFormat } from '../../hooks/useConditionalFormat';

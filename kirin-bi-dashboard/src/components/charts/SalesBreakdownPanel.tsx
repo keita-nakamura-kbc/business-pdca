@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Package, ChevronRight, ChevronDown } from 'lucide-react';
 import type { SlicerState, DrilldownType } from '../../types';
-import type { ContainerChannelRow } from '../../data/appendixData';
+import type { ContainerChannelRow } from '../../data/salesDetailData';
 import { StatusIcon } from '../common/StatusIcon';
 import { Sparkline } from '../common/Sparkline';
 import { SectionHeader } from '../common/SectionHeader';

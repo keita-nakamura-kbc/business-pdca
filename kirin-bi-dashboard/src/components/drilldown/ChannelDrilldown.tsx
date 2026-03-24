@@ -3,7 +3,7 @@ import { SectionHeader } from '../common/SectionHeader';
 import { DeltaValue } from '../common/DeltaValue';
 import { Truck, ChevronRight, ChevronDown } from 'lucide-react';
 import type { SlicerState } from '../../types';
-import type { ChannelPlRow } from '../../data/appendixData';
+import type { ChannelPlRow } from '../../data/channelData';
 import { channelPlData, channelPlDataMonthly } from '../../data';
 import styles from './DrilldownContent.module.css';
 

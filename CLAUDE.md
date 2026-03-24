@@ -4,6 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Kirin Beverage monthly PDCA dashboard — React + Recharts, fixed 1920×1080 viewport.
 
+## 略語一覧
+
+| 略語 | 正式名 | 意味 |
+|------|--------|------|
+| PL | Profit & Loss | 損益計算書 |
+| BU | Business Unit | 事業部 |
+| KPI | Key Performance Indicator | 重要業績評価指標 |
+| YoY | Year-over-Year | 前年同期比 |
+| CVS | Convenience Store | コンビニエンスストア |
+| NCVS | Non-CVS | コンビニ以外 |
+| EC | E-Commerce | 電子商取引 |
+
 ## Build & Dev
 
 **Windows gotcha**: `cd` doesn't work in bash for Windows paths. Use:
@@ -94,7 +106,11 @@ All static data in `src/data/`, barrel-exported via `index.ts`. Most datasets ha
 | `trendData.ts` | annualTrendData (12-month combo chart) |
 | `costData.ts` | priceVarianceDataMonthly, priceVarianceDataCumulative |
 | `buTrendData.ts` | buMonthlySales, buCumulativeSales (3BU月別売上推移 億円) |
-| `appendixData.ts` | regionalPlData, salesByBrand/Container/Channel (monthly+cumulative), containerChannelData, rawMaterialData, rawMaterialCostTotal, channelPlData, channelSummary, marketMultiYearMonthly/Cumulative (3-year market data). Defines `SalesDetailRow`, `RegionalPlRow`, `MarketShareData`, `MarketMultiYearPoint` interfaces. Legacy `MarketTrendPoint`/`marketTrendMonthly`/`marketTrendCumulative` still exported but unused by components |
+| `regionalPlData.ts` | RegionalPlRow型, regionalPlData/regionalPlDataMonthly (連結領域別PL) |
+| `marketData.ts` | MarketMultiYearPoint型, marketMultiYearMonthly/Cumulative (3-year market data). Legacy MarketShareData/MarketTrendPoint also exported |
+| `salesDetailData.ts` | SalesDetailRow型, ContainerChannelRow型, salesByBrand/Container/Channel (monthly+cumulative), containerChannelData |
+| `channelData.ts` | ChannelPlRow型, channelPlData/channelPlDataMonthly, channelSummary/channelSummaryMonthly |
+| `rawMaterialData.ts` | RawMaterialRow型, rawMaterialData, rawMaterialCostTotalCumulative/Monthly |
 | `containerBrandData.ts` | containerBrandData, containerBrandDataMonthly (ContainerBrandGroup[] — 容器>ブランド>詳細 3階層) |
 | `brandIcons.ts` | Shield(purple)=プラズマ/iMUSE, Coffee(red)=午後の紅茶, Leaf(green)=生茶 |
 
@@ -108,9 +124,8 @@ kirin-bi-dashboard/src/
 │   ├── charts/      ComboChart, WaterfallChart, HeatmapTable, BrandHeatmapTable,
 │   │                BuTrendChart, BrandTrendChart, SalesBreakdownPanel, BrandSalesTable,
 │   │                MarketPanel, RegionalPlSummary, heatmapUtils
-│   ├── drilldown/   KpiDrilldown, BrandDrilldown, PlRowDrilldown,
+│   ├── drilldown/   KpiDrilldown, BrandDrilldown, WaterfallView, PlTrendChart,
 │   │                ChannelDrilldown, CostDrilldown, BrandMarketCharts,
-│   │                PlTrendChart, PlRowView, WaterfallView,
 │   │                DrilldownContent.module.css (shared drilldown styles)
 │   └── tabs/        TrendsTab, DriversTab
 ├── hooks/           useSlicer, useDrilldown, useConditionalFormat, usePresentation
@@ -238,9 +253,11 @@ Value cells combine two background layers via inline style:
 
 ### Types in `src/data/` (not in types/index.ts)
 - `BrandMetricRow` (brandMetricData.ts) — brand × 5 metrics (volume/sales/marginalProfit/directProfit)
-- `RegionalPlRow` (appendixData.ts) — 13-row P&L with hs/food/consolidated values + planRatio/yoyRatio. Cost items have pre-inverted ratios.
-- `SalesDetailRow` (appendixData.ts) — brand sales detail with actual/plan/ratio/yoy + salesAmount/salesPlanRatio
-- `MarketMultiYearPoint` (appendixData.ts) — 3-year market data (label/month/year + 5 company values in 万箱). `MarketShareData`, `MarketTrendPoint` also exported (legacy, unused by components)
+- `RegionalPlRow` (regionalPlData.ts) — 13-row P&L with hs/food/consolidated values + planRatio/yoyRatio. Cost items have pre-inverted ratios.
+- `SalesDetailRow`, `ContainerChannelRow` (salesDetailData.ts) — brand sales detail with actual/plan/ratio/yoy + salesAmount/salesPlanRatio
+- `MarketMultiYearPoint` (marketData.ts) — 3-year market data (label/month/year + 5 company values in 万箱). `MarketShareData`, `MarketTrendPoint` also exported (legacy, unused by components)
+- `ChannelPlRow`, `ChannelSummaryItem` (channelData.ts) — チャネル別損益
+- `RawMaterialRow` (rawMaterialData.ts) — 原材料動向
 - `BuMonthlyPoint` (buTrendData.ts) — BU monthly sales with target/prev year per BU
 - `ContainerBrandGroup` / `ContainerBrandEntry` / `BrandDetail` (containerBrandData.ts) — 容器>ブランド>詳細 3階層データ
 
@@ -257,7 +274,7 @@ Value cells combine two background layers via inline style:
 
 ## Non-Source Files
 
-Dead code has been cleaned up — no known unused component files remain. **Reference artifacts** (not actively developed): `files/` (HTML mockups, JSON structure), `doc/` (source PDFs), `*.py` (root — PDF extraction scripts).
+**Reference artifacts** (not actively developed): `files/` (HTML mockups, JSON structure), `doc/` (source PDFs), `*.py` (root — PDF extraction scripts).
 
 **`.gitignore` notes**: `config.py` (Azure API keys) and `doc/*.pdf` (confidential) are excluded — do not commit these files.
 

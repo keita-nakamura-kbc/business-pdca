@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { TabId, DrilldownType } from './types';
+import type { TabId, DrilldownType, WaterfallSegment } from './types';
 import { TopBar } from './components/layout/TopBar';
 import { SlicerBar } from './components/layout/SlicerBar';
 import { DrilldownPanel } from './components/layout/DrilldownPanel';
@@ -8,7 +8,7 @@ import { TrendsTab } from './components/tabs/TrendsTab';
 import { DriversTab } from './components/tabs/DriversTab';
 import { KpiDrilldown } from './components/drilldown/KpiDrilldown';
 import { BrandDrilldown } from './components/drilldown/BrandDrilldown';
-import { PlRowDrilldown } from './components/drilldown/PlRowDrilldown';
+import { WaterfallView } from './components/drilldown/WaterfallView';
 import { ChannelDrilldown } from './components/drilldown/ChannelDrilldown';
 import { CostDrilldown } from './components/drilldown/CostDrilldown';
 import { useSlicer } from './hooks/useSlicer';
@@ -77,7 +77,7 @@ function App() {
       case 'brand':
         return <BrandDrilldown data={drilldown.data} slicer={slicer} />;
       case 'waterfall':
-        return <PlRowDrilldown data={drilldown.data} slicer={slicer} />;
+        return <WaterfallView segment={drilldown.data.segment as WaterfallSegment} slicer={slicer} />;
       case 'channel':
         return <ChannelDrilldown data={drilldown.data} slicer={slicer} />;
       case 'cost':
